@@ -105,7 +105,7 @@ class CategoryController extends Controller
                 $extension          = Str::lower($file->getClientOriginalExtension());
                 $filename           = Str::uuid() . Str::random(5) . '.' . $extension;
                 $img                = $manager->read($file);
-                $img                = $img->resize(130,130);
+                $img                = $img->resize(210,175);
                 $destinationPath    = public_path('uploads/category/');  // Directory name will change
                 $img->save($destinationPath.$filename);
                 $query->image       = $filename;

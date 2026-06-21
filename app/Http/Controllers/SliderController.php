@@ -58,9 +58,10 @@ class SliderController extends Controller
 
             $id = $request->id ?? null; // If updating, get the ID, otherwise null
             $request->validate(array(  // All column field will change
-                // 'title' => 'required|min:3',
-                // 'slogan' => 'required|min:3',
-                // 'link' => 'required|min:1',
+                'title' => 'required|min:3',
+                'slogan' => 'required|min:3',
+                'button_text' => 'required|min:3',
+                'link' => 'required|min:1',
                 'image' => $id ? 'nullable' : 'required', // Required if creating, nullable if updating
                 'status' => 'required|in:active,inactive',
             ));
@@ -96,7 +97,7 @@ class SliderController extends Controller
                 $extension          = Str::lower($file->getClientOriginalExtension());
                 $filename           = Str::uuid() . Str::random(5) . '.' . $extension;
                 $img                = $manager->read($file);
-                $img                = $img->resize(1200,600);
+                $img                = $img->resize(650,445);
                 $destinationPath    = public_path('uploads/slider/');  // Directory name will change
                 $img->save($destinationPath.$filename);
                 $query->image       = $filename;
@@ -116,6 +117,7 @@ class SliderController extends Controller
             // All request name will be changed
             $query->title = $request->title;
             $query->slogan = $request->slogan;
+            $query->button_text = $request->button_text;
             $query->link = $request->link;
             $query->status = $request->status;
             $query->user_id = Auth::guard('admin')->id();

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Banner;
+use App\Models\Trust;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
@@ -15,18 +15,18 @@ use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use Yajra\Datatables\Datatables;
 
-class BannerController extends Controller
+
+class TrustController extends Controller
 {
 
-
-    public function Banner()
+    public function Trust()
     {
-        return view('back-end.pages.banner.banner');
+        return view('back-end.pages.trust.trust');
     }
 
-    public function BannerEditData(Request $request)
+    public function TrustEditData(Request $request)
     {
-        $query = Banner::find($request->id); // Model will change
+        $query = Trust::find($request->id); // Model will change
         if(!$query){
             return response()->json([
             'status' => "error",
@@ -42,43 +42,41 @@ class BannerController extends Controller
 
     }
 
-    public function BannerInsert(Request $request)
+    public function TrustInsert(Request $request)
     {
 
         if($request->has('delete')){
-            $query = Banner::find($request->delete); // Model will change
+            $query = Trust::find($request->delete); // Model will change
 
             if ($query->image != null) {
-                unlink(public_path('uploads/banner/' . $query->image)); // image directory name will change
+                unlink(public_path('uploads/trust/' . $query->image)); // image directory name will change
             }
 
             $query->delete();
 
-            $message = 'Banner Deleted Successfully!'; // message will change
+            $message = 'Trust Deleted Successfully!'; // message will change
         }else{
 
             $id = $request->id ?? null; // If updating, get the ID, otherwise null
             $request->validate(array(  // All column field will change
                 'title' => 'required|min:3',
                 'slogan' => 'required|min:3',
-                'button_text' => 'required|min:3',
-                'link' => 'required|min:1',
                 'image' => $id ? 'nullable' : 'required', // Required if creating, nullable if updating
                 'status' => 'required|in:active,inactive',
             ));
 
-            $message = 'Banner Create Successfully!'; // Message will change
+            $message = 'Trust Created Successfully!'; // Message will change
 
             if($request->has('id')){
-                $query = Banner::find($request->id);  // Model name will change
+                $query = Trust::find($request->id);  // Model name will change
 
                 if ($request->hasFile('image')) {
                     if ($query->image != null) {
-                        unlink(public_path('uploads/banner/' . $query->image)); // Directory name will change
+                        unlink(public_path('uploads/trust/' . $query->image)); // Directory name will change
                     }
                 }
 
-                $message = 'Banner Updated Successfully!'; // Message will change
+                $message = 'Trust Updated Successfully!'; // Message will change
 
                 if(!$query){
                     return response()->json([
@@ -87,7 +85,7 @@ class BannerController extends Controller
                     ],422);
                 }
             }else{
-                $query = new Banner;  // Model name will change
+                $query = new Trust;  // Model name will change
                 $query->user_id = Auth::guard('admin')->id();
             }
 
@@ -98,8 +96,8 @@ class BannerController extends Controller
                 $extension          = Str::lower($file->getClientOriginalExtension());
                 $filename           = Str::uuid() . Str::random(5) . '.' . $extension;
                 $img                = $manager->read($file);
-                $img                = $img->resize(600,300);
-                $destinationPath    = public_path('uploads/banner/');  // Directory name will change
+                $img                = $img->resize(32,32);
+                $destinationPath    = public_path('uploads/trust/');  // Directory name will change
                 $img->save($destinationPath.$filename);
                 $query->image       = $filename;
 
@@ -108,7 +106,7 @@ class BannerController extends Controller
                 // $image_name        = Str::uuid() . Str::random(5);
                 // $ext               = Str::lower($request->file('image')->getClientOriginalExtension());
                 // $image_full_name   = $image_name.'.'.$ext;
-                // $upload_path       = "uploads/banner/";  // Directory name will change
+                // $upload_path       = "uploads/trust/";  // Directory name will change
                 // $image_url         = $upload_path.$image_full_name;
                 // $success           = $request->file('image')->move($upload_path,$image_full_name);
                 // $query->image      = $image_full_name;
@@ -118,8 +116,6 @@ class BannerController extends Controller
             // All request name will be changed
             $query->title = $request->title;
             $query->slogan = $request->slogan;
-            $query->button_text = $request->button_text;
-            $query->link = $request->link;
             $query->status = $request->status;
             $query->user_id = Auth::guard('admin')->id();
             $query->save();
@@ -130,12 +126,12 @@ class BannerController extends Controller
         ]);
     }
 
-    public function BannerData(Request $request)
+    public function TrustData(Request $request)
     {
-        $Banner = Banner::with('admin:id,name')->orderBy('id', 'desc')->get(); // Model & Variable will change
+        $Trust = Trust::with('admin:id,name')->orderBy('id', 'desc')->get(); // Model & Variable will change
         $this->i=1;
 
-        return DataTables::of($Banner)  // Variable will change
+        return DataTables::of($Trust)  // Variable will change
         ->addColumn('user_id', function ($data){
 				return $data->admin ? $data->admin->name:'';
 			})
@@ -143,7 +139,7 @@ class BannerController extends Controller
             return $this->i++;
         })
         ->addColumn('image', function ($data) {
-                $url = asset('uploads/banner/'. $data->image);   // Directory name will change
+                $url = asset('uploads/trust/'. $data->image);   // Directory name will change
                 return '<img src="'.$url.'" style="height:80px; width:80px;" alt="Image" class="mx-auto img-fluid d-block"/>';
             })
         ->addColumn('action', function ($data){

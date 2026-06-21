@@ -227,6 +227,37 @@
 				@endif
 
 
+                {{-- Banner menu  --}}
+                <li class="nav-item">
+                    <a href="{{ route('admin.banner') }}"
+                        class="nav-link {{ request()->routeIs('admin.banner') ? 'active' : '' }}"><i
+                            class="nav-icon fas fa-th"></i>
+                        <p>Banner</p>
+                    </a>
+                </li>
+
+
+                {{-- Feature menu  --}}
+                <li class="nav-item">
+                    <a href="{{ route('admin.feature') }}"
+                        class="nav-link {{ request()->routeIs('admin.feature') ? 'active' : '' }}"><i
+                            class="nav-icon fas fa-th"></i>
+                        <p>Feature</p>
+                    </a>
+                </li>
+
+                {{-- Trust menu  --}}
+                <li class="nav-item">
+                    <a href="{{ route('admin.trust') }}"
+                        class="nav-link {{ request()->routeIs('admin.trust') ? 'active' : '' }}"><i
+                            class="nav-icon fas fa-th"></i>
+                        <p>Trust</p>
+                    </a>
+                </li>
+
+
+
+
 
                 {{-- Page menu  --}}
                 <li class="nav-item">

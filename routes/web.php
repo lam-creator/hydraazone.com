@@ -5,11 +5,13 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminCouponController;
 use App\Http\Controllers\AdminOrderController;
 use App\Http\Controllers\AdminRoleController;
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CouponController;
+use App\Http\Controllers\FeatureController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\OrderController;
@@ -18,11 +20,12 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SliderController;
+use App\Http\Controllers\TrustController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WebsiteSettingsController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Artisan;
+
 
 
 // Route for Login
@@ -90,6 +93,24 @@ Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
     Route::get('slider_data', [SliderController::class, 'SliderData'])->name('slider.data');
     Route::get('slider_edit_data', [SliderController::class, 'SliderEditData'])->name('slider.edit');
     Route::post('slider_insert', [SliderController::class, 'SliderInsert'])->name('slider.insert');
+
+    // banner crud
+    Route::get('banner', [BannerController::class, 'Banner'])->name('banner');
+    Route::get('banner_data', [BannerController::class, 'BannerData'])->name('banner.data');
+    Route::get('banner_edit_data', [BannerController::class, 'BannerEditData'])->name('banner.edit');
+    Route::post('banner_insert', [BannerController::class, 'BannerInsert'])->name('banner.insert');
+
+    // feature crud
+    Route::get('feature', [FeatureController::class, 'Feature'])->name('feature');
+    Route::get('feature_data', [FeatureController::class, 'FeatureData'])->name('feature.data');
+    Route::get('feature_edit_data', [FeatureController::class, 'FeatureEditData'])->name('feature.edit');
+    Route::post('feature_insert', [FeatureController::class, 'FeatureInsert'])->name('feature.insert');
+
+    // trust crud
+    Route::get('trust', [TrustController::class, 'Trust'])->name('trust');
+    Route::get('trust_data', [TrustController::class, 'TrustData'])->name('trust.data');
+    Route::get('trust_edit_data', [TrustController::class, 'TrustEditData'])->name('trust.edit');
+    Route::post('trust_insert', [TrustController::class, 'TrustInsert'])->name('trust.insert');
 
     // Page  crud
     Route::get('page', [PageController::class, 'Page'])->name('page');

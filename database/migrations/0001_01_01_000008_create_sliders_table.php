@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
 			$table->string('title')->nullable();
             $table->string('slogan')->nullable();
+            $table->string('button_text')->nullable();
             $table->string('link')->nullable();
             $table->string('image')->nullable();
             $table->enum('status',['active','inactive'])->default('inactive');

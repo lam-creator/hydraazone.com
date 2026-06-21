@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hydraa - Premium Home Collection</title>
-    
+
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- FontAwesome for Icons -->
@@ -46,7 +46,7 @@
         .bg-light-theme { background-color: var(--bg-light); }
         .font-12 { font-size: 12px; }
         .font-14 { font-size: 14px; }
-        
+
         .btn-theme {
             background-color: var(--primary-color);
             color: #fff;
@@ -131,10 +131,10 @@
         .all-categories-btn::after {
             display: none; /* Hide default bootstrap dropdown arrow on this specific button */
         }
-        .main-nav .nav-link { 
-            font-weight: 500; 
+        .main-nav .nav-link {
+            font-weight: 500;
             color: var(--text-dark);
-            padding: 10px 15px; 
+            padding: 10px 15px;
             transition: color 0.3s;
         }
         .main-nav .nav-link:hover, .main-nav .nav-link:focus { color: var(--primary-color); }
@@ -172,15 +172,15 @@
 
         /* Mobile Nav Styles */
         @media (max-width: 991px) {
-            .navbar-collapse { 
-                background: #fff; 
-                padding: 15px; 
-                border-radius: 8px; 
-                box-shadow: 0 10px 20px rgba(0,0,0,0.05); 
-                position: absolute; 
-                top: 100%; 
-                left: 0; 
-                right: 0; 
+            .navbar-collapse {
+                background: #fff;
+                padding: 15px;
+                border-radius: 8px;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
                 z-index: 1000;
             }
             .main-nav .nav-link { border-bottom: 1px solid #eee; padding: 12px 15px;}
@@ -246,7 +246,7 @@
         }
         .collection-card:hover { box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
         .collection-card img { width: 100%; border-radius: 6px; margin-bottom: 15px; }
-        
+
         .promo-card {
             background: #111;
             color: white;
@@ -259,7 +259,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .banner-card {
             border-radius: 8px;
             padding: 40px;
@@ -385,27 +385,13 @@
 </head>
 <body>
 
-    <!-- Top Bar -->
-    <div class="top-bar d-none d-md-block">
-        <div class="container d-flex justify-content-between align-items-center">
-            <div class="d-flex gap-3 gap-lg-4 flex-wrap">
-                <span><i class="fa-solid fa-phone"></i> Call Us: 01312-345678</span>
-                <span><i class="fa-solid fa-truck"></i> Free Delivery on orders over ৳2,000</span>
-                <span><i class="fa-solid fa-money-bill-wave"></i> Cash on Delivery Available</span>
-            </div>
-            <div class="d-flex gap-2 gap-lg-3">
-                <a href="#"><i class="fa-solid fa-location-dot"></i> Track Order</a> |
-                <a href="#"><i class="fa-solid fa-circle-question"></i> Help Center</a>
-            </div>
-        </div>
-    </div>
-
     <!-- Header -->
     <header class="py-3 py-lg-4">
         <div class="container d-flex align-items-center justify-content-between">
             <!-- Logo -->
             <a href="#" class="d-flex align-items-center text-decoration-none">
-                <h2 class="m-0 serif-font text-dark fw-bold fs-3 fs-lg-2">HY<span class="text-primary-theme">DRA</span></h2>
+                {{-- <h2 class="m-0 serif-font text-dark fw-bold fs-3 fs-lg-2">HYDRAA<span class="text-primary-theme">ZONE</span></h2> --}}
+                <img src="https://placehold.co/150x60?text=HYDRAA-ZONE" alt="HYDRAA ZONE">
             </a>
 
             <!-- Search (Desktop) -->
@@ -433,7 +419,7 @@
                     <span class="badge-count">0</span>
                     <div class="font-12 d-none d-lg-block">Cart</div>
                 </div>
-                
+
                 <!-- Mobile Menu Toggler -->
                 <button class="navbar-toggler d-lg-none border-0 bg-transparent fs-2 text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#mobileNavMenu">
                     <i class="fa-solid fa-bars"></i>
@@ -446,7 +432,7 @@
     <div class="nav-menu-wrapper mb-4 position-relative">
         <nav class="container navbar navbar-expand-lg py-0">
             <div class="d-flex w-100 align-items-center pb-2 pb-lg-3">
-                
+
                 <!-- Desktop "All Categories" Dropdown -->
                 <div class="dropdown d-none d-lg-block me-4">
                     <button class="all-categories-btn border-0 d-flex align-items-center gap-2 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -461,7 +447,7 @@
                         <li><a class="dropdown-item py-2" href="#">Kitchen Accessories</a></li>
                     </ul>
                 </div>
-                
+
                 <div class="collapse navbar-collapse" id="mobileNavMenu">
                     <!-- Mobile Search (Visible only on small screens) -->
                     <div class="search-form d-flex d-lg-none mb-3">
@@ -474,7 +460,7 @@
                         <li class="nav-item">
                             <a href="#" class="nav-link active-link">Home</a>
                         </li>
-                        
+
                         <!-- Responsive Dropdown for Shop -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -491,7 +477,7 @@
                         <li class="nav-item"><a href="#" class="nav-link">Table Runners</a></li>
                         <li class="nav-item"><a href="#" class="nav-link">Tea Table Covers</a></li>
                         <li class="nav-item"><a href="#" class="nav-link">Home Appliances</a></li>
-                        
+
                         <li class="nav-item">
                             <a href="#" class="nav-link">Deals <span class="hot-badge">Hot</span></a>
                         </li>
@@ -505,7 +491,7 @@
     <!-- Hero Slider Section -->
     <section class="hero-section">
         <div id="mainHeroCarousel" class="carousel slide hero-carousel" data-bs-ride="carousel">
-            
+
             <!-- Indicators -->
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#mainHeroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -697,28 +683,28 @@
     <section class="container features-bar mb-5">
         <div class="row g-3">
             <div class="col-6 col-md-3 feature-item">
-                <i class="fa-solid fa-wallet text-dark"></i>
+                <img src="https://placehold.co/32x32" alt="image" class="img-fluid">
                 <div>
                     <div class="fw-bold font-14">Cash on Delivery</div>
                     <div class="text-muted font-12">Pay when you receive</div>
                 </div>
             </div>
             <div class="col-6 col-md-3 feature-item">
-                <i class="fa-solid fa-truck-fast text-dark"></i>
+                <img src="https://placehold.co/32x32" alt="image" class="img-fluid">
                 <div>
                     <div class="fw-bold font-14">Fast Delivery</div>
                     <div class="text-muted font-12">Across Bangladesh</div>
                 </div>
             </div>
             <div class="col-6 col-md-3 feature-item">
-                <i class="fa-solid fa-rotate-left text-dark"></i>
+                <img src="https://placehold.co/32x32" alt="image" class="img-fluid">
                 <div>
                     <div class="fw-bold font-14">Easy Returns</div>
                     <div class="text-muted font-12">7-day return policy</div>
                 </div>
             </div>
             <div class="col-6 col-md-3 feature-item">
-                <i class="fa-solid fa-headset text-dark"></i>
+                <img src="https://placehold.co/32x32" alt="image" class="img-fluid">
                 <div>
                     <div class="fw-bold font-14">Trusted Support</div>
                     <div class="text-muted font-12">We're here to help</div>
@@ -802,7 +788,7 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-4 mb-4 mb-lg-0 text-center text-lg-start">
-                    <h3 class="serif-font m-0 fs-2">Why Thousands<br>Trust <span class="text-primary-theme">Hydraa?</span></h3>
+                    <h3 class="serif-font m-0 fs-2">Why Trust <span class="text-primary-theme">Us?</span></h3>
                 </div>
                 <div class="col-lg-8">
                     <div class="row text-white g-4">

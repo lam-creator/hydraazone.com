@@ -72,7 +72,7 @@
                                     <div class="col-lg-6">
                                         <div class="mb-4 form-group">
                                             <label for="exampleInputImage">Image <span class="text-danger">* Image size need
-                                                    to be 130x130</span></label>
+                                                    to be 210x175</span></label>
                                             <input class="form-control" type="file" name="image">
                                             @error('image')
                                                 <span class="text-danger">{{ $message }}</span>

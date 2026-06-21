@@ -59,7 +59,8 @@
                                                     class="text-danger">*</span></label>
                                             <select class="form-control" name="location" required>
                                                 <option value="" selected>Select location</option>
-                                                <option value="footer">Important Links</option>
+                                                <option value="footer_1">Quick Links</option>
+                                                <option value="footer_2">Customer Service</option>
                                                 <option value="menu">Top Menu</option>
                                             </select>
                                             @error('location')

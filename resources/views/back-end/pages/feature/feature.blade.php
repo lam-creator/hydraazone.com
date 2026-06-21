@@ -1,5 +1,5 @@
 @extends('back-end.layout.master')
-@section('pageTitle', isset($pageTitle) ? $pageTitle : 'All Slider List')
+@section('pageTitle', isset($pageTitle) ? $pageTitle : 'All Feature List')
 @section('content')
 
 <!-- BEGIN: Page content-->
@@ -8,8 +8,8 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header d-flex">
-                    <h5 class="box-title mr-auto p-2 mb-0">Slider</h5>
-                    <button type="button" class="btn btn-primary btn-sm DataAddButton">Add Slider</button>
+                    <h5 class="box-title mr-auto p-2 mb-0">Feature</h5>
+                    <button type="button" class="btn btn-primary btn-sm DataAddButton">Add Feature</button>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -26,7 +26,7 @@
 
 <div class="modal fade" id="DataAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
-        <form id="DataAddUpdate" action="{{ route('admin.slider.insert') }}" method="post" enctype="multipart/form-data">
+        <form id="DataAddUpdate" action="{{ route('admin.feature.insert') }}" method="post" enctype="multipart/form-data">
             <input type="hidden" name="id" id="hidden-id">
             <div class="modal-content">
                 <div class="modal-header">
@@ -42,8 +42,8 @@
 
                                 <div class="col-lg-6">
                                     <div class="form-group mb-4">
-                                        <label for="exampleInputTitle">Slider Title</label>
-                                        <input class="form-control" type="text" name="title" placeholder="Slider title">
+                                        <label for="exampleInputTitle">Feature Title</label>
+                                        <input class="form-control" type="text" name="title" placeholder="Feature title">
                                         @error('title')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -52,34 +52,14 @@
 
                                 <div class="col-lg-6">
                                     <div class="form-group mb-4">
-                                        <label for="exampleInputSlogan">Slider Slogan</label>
-                                        <input class="form-control" type="text" name="slogan" placeholder="Slider slogan">
+                                        <label for="exampleInputSlogan">Feature Slogan</label>
+                                        <input class="form-control" type="text" name="slogan" placeholder="Feature slogan">
                                         @error('slogan')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
 
-
-                                <div class="col-lg-6">
-                                    <div class="form-group mb-4">
-                                        <label for="exampleInputButtonText">Slider Button Text</label>
-                                        <input class="form-control" type="text" name="button_text" placeholder="Slider button text">
-                                        @error('button_text')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-6">
-                                    <div class="form-group mb-4">
-                                        <label for="exampleInputLink">Slider Link</label>
-                                        <input class="form-control" type="text" name="link" placeholder="Slider link">
-                                        @error('link')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
 
                                 <div class="col-lg-6">
                                     <div class="form-group mb-4">
@@ -97,7 +77,7 @@
 
                                 <div class="col-lg-6">
                                     <div class="form-group mb-4">
-                                        <label for="exampleInputImage">Image <span class="text-danger">* Image size need to be 650x445</span></label>
+                                        <label for="exampleInputImage">Image <span class="text-danger">* Image size need to be 32x32</span></label>
                                         <input class="form-control" type="file" name="image">
                                         @error('image')
                                             <span class="text-danger">{{ $message }}</span>
@@ -130,7 +110,7 @@
 
     $(document).on('click', '.DataAddButton', function() {
         $('#hidden-id').attr("disabled", "true");
-        $('.modal-title').text('Add Slider');
+        $('.modal-title').text('Add Feature');
         $("#DataAdd").modal('show');
     });
 
@@ -153,7 +133,7 @@
         destroy: true,
         scrollX: true,
         ajax: {
-            url: "{{ route('admin.slider.data') }}", // URL will change
+            url: "{{ route('admin.feature.data') }}", // URL will change
             type: 'GET',
             cache: false,
             data: function(d) {
@@ -187,7 +167,7 @@
                     }
                     , method: 'POST'
                     , dataType: 'json'
-                    , url: "{{ route('admin.slider.insert') }}"  // URL will change
+                    , url: "{{ route('admin.feature.insert') }}"  // URL will change
                     , success: function(responseText) {
                         // formSuccess(responseText, statusText, xhr, $form);
                         Swal.fire("Congratulations!", responseText.message, "success");
@@ -209,7 +189,7 @@
 
     $(document).on('click', '.tableEdit', function() {
         let Id = $(this).data('id');
-        $('.modal-title').text('Update Slider');
+        $('.modal-title').text('Update Feature');
         $('#hidden-id').removeAttr("disabled");
         $('#hidden-id').val(Id);
         $(this).ajaxSubmit({
@@ -218,12 +198,10 @@
             }
             , dataType: 'json'
             , method: 'GET'
-            , url: "{{ route('admin.slider.edit') }}" // URL will change
+            , url: "{{ route('admin.feature.edit') }}" // URL will change
             , success: function(responseText) {
                 $('input[name^="title"]').val(responseText.data.title);
                 $('input[name^="slogan"]').val(responseText.data.slogan);
-                $('input[name^="button_text"]').val(responseText.data.button_text);
-                $('input[name^="link"]').val(responseText.data.link);
                 $('select[name^="status"]').val(responseText.data.status);
                 $("#DataAdd").modal('show');
             }
