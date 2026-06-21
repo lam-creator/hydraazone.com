@@ -1,0 +1,100 @@
+@media (max-width: 991px) {
+    /* Container styling for the navbar */
+    .navbar > .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 15px;
+        position: relative;
+    }
+
+    /* Position the logo in the center */
+    .navbar-brand {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        margin: 0;
+        z-index: 2;
+    }
+
+    /* Ensure the logo is sized appropriately */
+    .navbar-brand img {
+        height: 35px;
+    }
+
+    /* Position the toggle button on the left */
+    .navbar-toggler {
+        margin-right: 0;
+        padding: 4px 8px;
+        border: none;
+        order: 1;
+        z-index: 2;
+    }
+
+    /* Make sure the collapsed menu doesn't show in the header row */
+    #navbarNav {
+        width: 100%;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 3;
+        background-color: white;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    /* User and cart icons container */
+    .navbar .d-flex {
+        display: flex !important;
+        /* Force display */
+        order: 3;
+        margin-left: auto;
+        z-index: 2;
+    }
+
+    /* Ensure icons are visible and properly spaced */
+    .navbar .d-flex a {
+        display: inline-block;
+        margin-left: 15px;
+        font-size: 16px;
+    }
+
+    /* If the icons are inside the collapsing menu, move them out */
+    .navbar-collapse .d-flex {
+        position: absolute;
+        top: -50px;
+        right: 15px;
+    }
+
+    .login-card {
+        max-width: 70%;
+    }
+}
+
+/* Very Small device */
+@media (min-width: 340px) and (max-width: 575.98px) {
+    .product-image {
+        width: 100% !important;
+    }
+    .product-details-title {
+        margin-top: 15px;
+    }
+    .hide-in-mobile {
+        display: none !important;
+    }
+    .login-card {
+        max-width: 80%;
+    }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .product-image {
+        width: 100% !important;
+    }
+    .product-details-title {
+        margin-top: 15px;
+    }
+    .login-card {
+        max-width: 80%;
+    }
+}
