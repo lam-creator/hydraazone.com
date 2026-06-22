@@ -1,97 +1,69 @@
 @extends('front-end.layouts.master')
 
-{{-- @section('seo')
-    @php
-        $WebsiteSettingData = App\Models\WebsiteSettings::first();
-    @endphp
-    <title>{{ $product->meta_title }} | {{ $WebsiteSettingData->company_name }}</title>
-<meta name="description" content="{{ $product->meta_description }}" />
-<meta name="keywords" content="{{ $product->meta_keywords }}" />
-
-<!-- Open Graph Meta Tags (for social media optimization) -->
-<meta property="og:title" content="{{ $product->meta_title }}">
-<meta property="og:description" content="{{ $product->meta_description }}">
-<meta property="og:image" content="{{ asset('uploads/product/' . $product->image) }}">
-<meta property="og:url" content="{{ url()->current() }}">
-<meta property="og:type" content="website">
-
-<meta name="HandheldFriendly" content="True" />
-<meta name="pinterest" content="nopin" />
-
-<!-- Additional Structured Data (JSON-LD for schema.org markup) -->
-<script type="application/ld+json">
-{
-    "@context": "http://schema.org",
-    "@type": "WebPage",
-    "name": "{{ $product->meta_title }}",
-    "description": "{{ $product->meta_description }}"
-}
-</script>
-@endsection --}}
-
 @section('content')
 
 <section class="container mt-4 mb-5">
     <div class="row">
 
-
-        <div class="shadow-sm login-card">
-            <h3 class="mb-4 text-center">Register Now</h3>
-            <hr>
-            <form id="loginForm" method="post">
-                @csrf
-
-
-                <div class="mb-3">
-                    <label for="name" class="form-label">Full Name</label>
-                    <input type="text" class="form-control" placeholder="Your Name" id="name" name="name" required>
-                    @error('name')
-                    <div style="color: red">{{ $message }}</div><br>
-                    @enderror
-                </div>
-
-                <div class="mb-3">
-                    <label for="phone" class="form-label">phone</label>
-                    <input type="phone" class="form-control" placeholder="017........." id="phone" name="phone"
-                        required>
-                    @error('phone')
-                    <div style="color: red">{{ $message }}</div><br>
-                    @enderror
-                </div>
-
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" placeholder="Your Email" id="email" name="email" required>
-                    @error('email')
-                    <div style="color: red">{{ $message }}</div><br>
-                    @enderror
-                </div>
+        <div class="col-lg-6 offset-lg-3">
+            <div class="shadow-sm p-4 login-card">
+                <h3 class="mb-4 text-center">Register Now</h3>
+                <hr>
+                <form id="loginForm" method="post">
+                    @csrf
 
 
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" placeholder="Your Name" id="name" name="name" required>
+                        @error('name')
+                        <div style="color: red">{{ $message }}</div><br>
+                        @enderror
+                    </div>
 
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" placeholder="Create a password" id="password"
-                        name="password" required>
-                    @error('password')
-                    <div style="color: red">{{ $message }}</div><br>
-                    @enderror
-                </div>
-                <div class="mb-3">
-                    <label for="password_confirmation" class="form-label">Confirm Password</label>
-                    <input type="password" class="form-control" placeholder="Re-enter your password"
-                        id="password_confirmation" name="password_confirmation" required>
-                    @error('password_confirmation')
-                    <div style="color: red">{{ $message }}</div><br>
-                    @enderror
-                </div>
-                <button type="submit" class="btn btn-primary w-100">Register</button>
-                <div class="mt-3 text-center">
-                    <p>Already have an account? <a href="{{ route('user.login') }}"
-                            class="text-decoration-none">Login</a></p>
-                </div>
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">phone</label>
+                        <input type="phone" class="form-control" placeholder="017........." id="phone" name="phone"
+                            required>
+                        @error('phone')
+                        <div style="color: red">{{ $message }}</div><br>
+                        @enderror
+                    </div>
 
-            </form>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" placeholder="Your Email" id="email" name="email" required>
+                        @error('email')
+                        <div style="color: red">{{ $message }}</div><br>
+                        @enderror
+                    </div>
+
+
+
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" placeholder="Create a password" id="password"
+                            name="password" required>
+                        @error('password')
+                        <div style="color: red">{{ $message }}</div><br>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="password_confirmation" class="form-label">Confirm Password</label>
+                        <input type="password" class="form-control" placeholder="Re-enter your password"
+                            id="password_confirmation" name="password_confirmation" required>
+                        @error('password_confirmation')
+                        <div style="color: red">{{ $message }}</div><br>
+                        @enderror
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Register</button>
+                    <div class="mt-3 text-center">
+                        <p>Already have an account? <a href="{{ route('user.login') }}"
+                                class="text-decoration-none">Login</a></p>
+                    </div>
+
+                </form>
+            </div>
         </div>
 
     </div>

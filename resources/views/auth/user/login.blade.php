@@ -1,69 +1,42 @@
 @extends('front-end.layouts.master')
 
-{{-- @section('seo')
-    @php
-        $WebsiteSettingData = App\Models\WebsiteSettings::first();
-    @endphp
-    <title>{{ $product->meta_title }} | {{ $WebsiteSettingData->company_name }}</title>
-<meta name="description" content="{{ $product->meta_description }}" />
-<meta name="keywords" content="{{ $product->meta_keywords }}" />
-
-<!-- Open Graph Meta Tags (for social media optimization) -->
-<meta property="og:title" content="{{ $product->meta_title }}">
-<meta property="og:description" content="{{ $product->meta_description }}">
-<meta property="og:image" content="{{ asset('uploads/product/' . $product->image) }}">
-<meta property="og:url" content="{{ url()->current() }}">
-<meta property="og:type" content="website">
-
-<meta name="HandheldFriendly" content="True" />
-<meta name="pinterest" content="nopin" />
-
-<!-- Additional Structured Data (JSON-LD for schema.org markup) -->
-<script type="application/ld+json">
-{
-    "@context": "http://schema.org",
-    "@type": "WebPage",
-    "name": "{{ $product->meta_title }}",
-    "description": "{{ $product->meta_description }}"
-}
-</script>
-@endsection --}}
-
 @section('content')
 
 <section class="container mt-4 mb-5">
     <div class="row">
 
-        <div class="shadow-sm login-card">
-            <h3 class="mb-4 text-center">Login</h3>
-            <hr>
-            <form id="loginForm" method="post">
-                @csrf
-                <div class="mb-3">
-                    <label for="phone" class="form-label">Your Phone Number</label>
-                    <input type="phone" class="form-control" name="phone" placeholder="Ex: 015...." required>
-                    @error('phone')
-                    <div style="color: red">{{ $message }}</div><br>
-                    @enderror
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" name="password" placeholder="Enter your password"
-                        required>
-                    @error('password')
-                    <div style="color: red">{{ $message }}</div><br>
-                    @enderror
-                </div>
-                <p class="text-center">forgot password? <a href="{{ route('user.password.request') }}"
-                        class="text-decoration-none">Reset</a>
-                </p>
-                <button type="submit" class="btn btn-primary w-100">Login</button>
-                <div class="mt-3 text-center">
-                    <p>Don't have an account? <a href="{{ route('user.register') }}"
-                            class="text-decoration-none">Register</a>
+        <div class="col-lg-6 offset-lg-3">
+            <div class="shadow-sm p-4 login-card">
+                <h3 class="mb-4 text-center">Login</h3>
+                <hr>
+                <form id="loginForm" method="post">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">Your Phone Number</label>
+                        <input type="phone" class="form-control" name="phone" placeholder="Ex: 015...." required>
+                        @error('phone')
+                        <div style="color: red">{{ $message }}</div><br>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" name="password" placeholder="Enter your password"
+                            required>
+                        @error('password')
+                        <div style="color: red">{{ $message }}</div><br>
+                        @enderror
+                    </div>
+                    <p class="text-center">forgot password? <a href="{{ route('user.password.request') }}"
+                            class="text-decoration-none">Reset</a>
                     </p>
-                </div>
-            </form>
+                    <button type="submit" class="btn btn-primary w-100">Login</button>
+                    <div class="mt-3 text-center">
+                        <p>Don't have an account? <a href="{{ route('user.register') }}"
+                                class="text-decoration-none">Register Now</a>
+                        </p>
+                    </div>
+                </form>
+            </div>
         </div>
 
     </div>
