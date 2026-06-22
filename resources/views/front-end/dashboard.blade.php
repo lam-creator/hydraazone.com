@@ -1,34 +1,5 @@
 @extends('front-end.layouts.master')
 
-{{-- @section('seo')
-    @php
-        $WebsiteSettingData = App\Models\WebsiteSettings::first();
-    @endphp
-    <title>{{ $product->meta_title }} | {{ $WebsiteSettingData->company_name }}</title>
-    <meta name="description" content="{{ $product->meta_description }}" />
-    <meta name="keywords" content="{{ $product->meta_keywords }}" />
-
-    <!-- Open Graph Meta Tags (for social media optimization) -->
-    <meta property="og:title" content="{{ $product->meta_title }}">
-    <meta property="og:description" content="{{ $product->meta_description }}">
-    <meta property="og:image" content="{{ asset('uploads/product/' . $product->image) }}">
-    <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:type" content="website">
-
-    <meta name="HandheldFriendly" content="True" />
-    <meta name="pinterest" content="nopin" />
-
-    <!-- Additional Structured Data (JSON-LD for schema.org markup) -->
-    <script type="application/ld+json">
-        {
-        "@context": "http://schema.org",
-        "@type": "WebPage",
-        "name": "{{ $product->meta_title }}",
-        "description": "{{ $product->meta_description }}"
-        }
-    </script>
-@endsection --}}
-
 @section('content')
 
     <!-- Products Section 1 -->

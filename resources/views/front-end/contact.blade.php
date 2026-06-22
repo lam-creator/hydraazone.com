@@ -30,12 +30,6 @@
 @endsection
 
 @section('content')
-<style>
-.cart-btn {
-    border-radius: 35px;
-}
-</style>
-
 
 <!-- contact Section -->
 <section class="container mt-4 mb-5">
@@ -97,7 +91,7 @@
                 </div>
 
                 <div class="form-submit">
-                    <button class="btn btn-color-orange" type="submit" id="form-submit"><i
+                    <button class="btn btn-theme" type="submit" id="form-submit"><i
                             class="material-icons mdi mdi-message-outline"></i> Send Message</button>
                     <div id="msgSubmit" class="hidden text-center h3"></div>
                     <div class="clearfix"></div>

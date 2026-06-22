@@ -38,7 +38,7 @@
 
         <div class="row">
 
-            <div class="col-md-8">
+            <div class="col-md-7">
                 <div class="sub-title">
                     <h2>Shipping Address</h2>
                 </div>
@@ -126,7 +126,7 @@
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-5">
                 <div class="sub-title">
                     <h2>Order Summery</h3>
                 </div>
@@ -134,40 +134,56 @@
                     <div class="card-body">
 
 
+
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
                         @if (count($cart) > 0)
                         @foreach ($cart as $productId => $item)
-                        <div class="pb-2 d-flex justify-content-between">
-                            <div class="h6">{{ $item['name'] }} X {{ $item['quantity'] }}</div>
-                            <div class="h6">Tk {{ $item['price'] * $item['quantity'] }}</div>
-                        </div>
+                        <tr>
+                            <td>{{ $item['name'] }}</td>
+                            <td>{{ $item['quantity'] }}</td>
+                            <td>৳ {{ $item['price'] * $item['quantity'] }}</td>
+                        </tr>
                         @endforeach
                         @endif
+
+                            </tbody>
+
+                        </table>
 
                         <hr>
                         <div class="d-flex justify-content-between summery-end">
                             <div class="h6"><strong>Subtotal</strong></div>
-                            <div class="h6"><strong>Tk {{ number_format($subtotal, 2) }}</strong></div>
+                            <div class="h6"><strong>৳ {{ number_format($subtotal, 2) }}</strong></div>
                         </div>
                         <div class="mt-2 d-flex justify-content-between">
                             <div class="h6"><strong>Shipping</strong></div>
-                            <div class="h6"><strong>Tk {{ number_format($shipping, 2) }}</strong></div>
+                            <div class="h6"><strong>৳ {{ number_format($shipping, 2) }}</strong></div>
                         </div>
                         @if($discount > 0)
                         <div class="mt-2 d-flex justify-content-between">
                             <div class="h6"><strong>Discount</strong></div>
-                            <div class="h6"><strong style="color: green;">-Tk {{ number_format($discount, 2) }}</strong></div>
+                            <div class="h6"><strong style="color: green;">-৳ {{ number_format($discount, 2) }}</strong></div>
                         </div>
                         @endif
                         <hr>
                         <div class="mt-2 d-flex justify-content-between summery-end">
                             <div class="h5"><strong>Total</strong></div>
-                            <div class="h5"><strong>Tk {{ number_format($total, 2) }}</strong></div>
+                            <div class="h5"><strong>৳ {{ number_format($total, 2) }}</strong></div>
                         </div>
 
                     </div>
                 </div>
 
-                <div class="mt-4 card payment-form">
+                <div class="mt-4 p-4 card payment-form">
                     <div class="p-0 card-body">
                         <div class="text-left">
                             <h5 class="mb-3">Payment Method</h5>

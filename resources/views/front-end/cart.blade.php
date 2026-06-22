@@ -34,12 +34,17 @@
         .cart-btn {
             border-radius: 35px;
         }
-        .table>thead {
-            background: #4690cd;
+        #cart thead {
+            background: #f38b00;
         }
 		#cart thead > tr > th {
-			color: #fff;
+			color: #000000;
+            border: 1px solid #ddd;
 		}
+
+        #cart tbody > tr > td {
+            border: 1px solid #ddd;
+        }
         .cart-summary {
             border: 1px solid #ddd;
             padding: 20px;
@@ -89,7 +94,7 @@
                                                 <p>{{ $item['name'] }}</p>
                                             </div>
                                         </td>
-                                        <td>Tk{{ $item['price'] }}</td>
+                                        <td>৳ {{ $item['price'] }}</td>
                                         <td>
                                             <div class="mx-auto input-group" style="width: 100px;">
                                                 <div class="input-group-btn">
@@ -131,22 +136,22 @@
 					<hr>
                     <div class="pb-2 d-flex justify-content-between">
                         <div>Subtotal</div>
-                        <div class="subtotal">Tk {{ number_format($subtotal, 2) }}</div>
+                        <div class="subtotal"> ৳ {{ number_format($subtotal, 2) }}</div>
                     </div>
                     <div class="pb-2 d-flex justify-content-between">
                         <div>Shipping</div>
-                        <div class="shipping">Tk {{ number_format($shipping, 2) }}</div>
+                        <div class="shipping"> ৳ {{ number_format($shipping, 2) }}</div>
                     </div>
                     @if($discount > 0)
                     <div class="pb-2 d-flex justify-content-between">
                         <div>Discount</div>
-                        <div class="discount" style="color: green;">-Tk {{ number_format($discount, 2) }}</div>
+                        <div class="discount" style="color: green;">-৳ {{ number_format($discount, 2) }}</div>
                     </div>
                     @endif
 					<hr>
                     <div class="d-flex justify-content-between summery-end">
                         <div>Total</div>
-                        <div class="total">Tk {{ number_format($total, 2) }}</div>
+                        <div class="total">৳ {{ number_format($total, 2) }}</div>
                     </div>
                     <div class="pt-5">
                         {{-- <a href="{{ route('user.checkout') }}" id="checkoutButton" class="btn btn-dark btn-block w-100">Proceed to Checkout</a> --}}
