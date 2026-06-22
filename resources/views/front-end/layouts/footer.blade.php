@@ -80,6 +80,12 @@ $footerdata = App\Models\WebsiteSettings::first();
         </div>
     </footer>
 
+    <!-- Sticky cart Start -->
+    @include('front-end.layouts.sticky-cart')
+    <!-- Sticky cart End -->
+
+
+
     <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/back-end/plugins/sweetalert2/sweetalert2.all.min.js"></script>

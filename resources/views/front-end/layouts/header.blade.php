@@ -312,7 +312,7 @@
             z-index: 2;
         }
         .product-card img { width: 100%; border-radius: 6px; margin-bottom: 15px;}
-        .product-title { font-size: 14px; font-weight: 500; margin-bottom: 5px; flex-grow: 1;}
+        .product-title { font-size: 14px; font-weight: 500; margin-bottom: 5px; flex-grow: 1; height:45px;}
         .product-price { font-weight: 600; font-size: 16px; }
         .product-price del { color: #999; font-size: 13px; font-weight: 400; margin-left: 5px;}
         .cart-btn-small {

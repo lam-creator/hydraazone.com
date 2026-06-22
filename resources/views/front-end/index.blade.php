@@ -165,75 +165,72 @@
 
     @endif
 
-    <!-- Popular Picks Section -->
+
+    @if($AllFeaturedProduct->isNotEmpty())
+
+    <!-- Popular Product Picks Section -->
     <section class="container my-5">
         <div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-end mb-4 gap-2">
             <h3 class="fw-bold m-0">Popular Picks For You</h3>
-            <a href="#" class="text-primary-theme fw-medium">View All Products <i class="fa-solid fa-arrow-right"></i></a>
+            <a href="{{ route('featured.products') }}" class="text-primary-theme fw-medium">View All Products <i class="fa-solid fa-arrow-right"></i></a>
         </div>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4">
-            <!-- Product 1 -->
-            <div class="col">
-                <div class="product-card">
-                    <span class="product-badge">-25%</span>
-                    <img src="https://placehold.co/300x300?text=Dining+Cover" alt="Product">
-                    <div class="product-title">Premium Dining Table Cover</div>
-                    <div class="d-flex justify-content-between align-items-center mt-3">
-                        <div class="product-price">৳1,450 <del>৳1,950</del></div>
-                        <button class="cart-btn-small"><i class="fa-solid fa-cart-shopping"></i></button>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4 justify-content-center">
+
+
+            @if ($AllFeaturedProduct->isNotEmpty())
+                @foreach ($AllFeaturedProduct as $FeaturedProduct)
+
+                    <!-- Product 1 -->
+                    <div class="col">
+                        <div class="product-card">
+
+                            <a href="{{ route('product-details', ['category' => $FeaturedProduct->category->category_slug, 'name' => $FeaturedProduct->product_slug, 'id' => $FeaturedProduct->id]) }}">
+
+                                @php
+                                    $totalDiscount = ($FeaturedProduct->discount_price - $FeaturedProduct->sale_price);
+                                @endphp
+                                @if ($FeaturedProduct->discount_price > 0)
+                                    <span class="product-badge">{{ $totalDiscount }}</span>
+                                @else
+                                    {{-- <span class="product-badge">0</span> --}}
+                                @endif
+
+                            <img src="{{ asset('uploads/product/' . $FeaturedProduct->image) }}" alt="{{ $FeaturedProduct->name }}">
+                            <div class="product-title">{{ Str::limit($FeaturedProduct->name, 50) }}</div>
+                            </a>
+
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+
+                                <div class="product-price">
+                                    @if ($FeaturedProduct->status == 'active')
+                                        @if ($FeaturedProduct->discount_price > 0)
+                                            ৳ {{ $FeaturedProduct->discount_price }}
+                                            <del>৳ {{ $FeaturedProduct->sale_price }}</del>
+                                        @else
+                                            ৳ {{ $FeaturedProduct->sale_price }}
+                                        @endif
+                                    @endif
+                                </div>
+
+                                <div class="product" data-id="{{ $FeaturedProduct->id }}">
+                                        <button class="cart-btn-small add-to-cart btn-add-cart"><i class="fa-solid fa-cart-shopping"></i></button>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <!-- Product 2 -->
-            <div class="col">
-                <div class="product-card">
-                    <span class="product-badge">-20%</span>
-                    <img src="https://placehold.co/300x300?text=Table+Runner" alt="Product">
-                    <div class="product-title">Elegant Table Runner</div>
-                    <div class="d-flex justify-content-between align-items-center mt-3">
-                        <div class="product-price">৳650 <del>৳810</del></div>
-                        <button class="cart-btn-small"><i class="fa-solid fa-cart-shopping"></i></button>
-                    </div>
-                </div>
-            </div>
-            <!-- Product 3 -->
-            <div class="col">
-                <div class="product-card">
-                    <span class="product-badge">-23%</span>
-                    <img src="https://placehold.co/300x300?text=Tea+Cover" alt="Product">
-                    <div class="product-title">Luxury Tea Table Cover</div>
-                    <div class="d-flex justify-content-between align-items-center mt-3">
-                        <div class="product-price">৳750 <del>৳970</del></div>
-                        <button class="cart-btn-small"><i class="fa-solid fa-cart-shopping"></i></button>
-                    </div>
-                </div>
-            </div>
-            <!-- Product 4 -->
-            <div class="col">
-                <div class="product-card">
-                    <span class="product-badge">-18%</span>
-                    <img src="https://placehold.co/300x300?text=Kettle" alt="Product">
-                    <div class="product-title">Electric Kettle 1.8L</div>
-                    <div class="d-flex justify-content-between align-items-center mt-3">
-                        <div class="product-price">৳1,350 <del>৳1,650</del></div>
-                        <button class="cart-btn-small"><i class="fa-solid fa-cart-shopping"></i></button>
-                    </div>
-                </div>
-            </div>
-            <!-- Product 5 -->
-            <div class="col">
-                <div class="product-card">
-                    <span class="product-badge">-15%</span>
-                    <img src="https://placehold.co/300x300?text=Microwave" alt="Product">
-                    <div class="product-title">Microwave Oven 20L</div>
-                    <div class="d-flex justify-content-between align-items-center mt-3">
-                        <div class="product-price">৳8,990 <del>৳10,590</del></div>
-                        <button class="cart-btn-small"><i class="fa-solid fa-cart-shopping"></i></button>
-                    </div>
-                </div>
-            </div>
+
+                @endforeach
+            @endif
+
+
+
+
+
         </div>
     </section>
+
+    @endif
 
     @if($AllTrust->isNotEmpty())
 
