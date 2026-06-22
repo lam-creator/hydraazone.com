@@ -27,10 +27,72 @@
 @endsection
 
 @section('content')
+
     <style>
-        .cart-btn {
-            border-radius: 35px;
+        .product-card {
+            /* border: 1px solid #eee;
+        border-radius: 5px; */
+            margin-bottom: 20px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            height: 100%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-card img {
+            width: 100%;
+            border-radius: 6px;
+        }
+        .product-image {
+            max-width: 100%;
+            height: auto;
+            /* border-radius: 10px; */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .discount-tag {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 5px 10px;
+            font-weight: bold;
+            font-size: 14px;
+            z-index: 1;
+            border-radius: 0 15px 15px 0;
+        }
+        .product-details {
+            padding: 10px;
+            text-align: center;
+        }
+        .product-title {
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 5px;
+        flex-grow: 1;
+        height: 45px;
+        margin: 10px 0;
+        }
+        .product-price {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        .original-price {
+            text-decoration: line-through;
+            color: #999;
+            margin-right: 5px;
+            font-size: 14px;
+        }
+        .discounted-price {
+            font-size: 16px;
+            color: var(--primary-color);
+        }
+
     </style>
 
     {{-- Code for Category wise product display  --}}
