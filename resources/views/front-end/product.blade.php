@@ -29,20 +29,79 @@ $WebsiteSettingData = App\Models\WebsiteSettings::first();
 @endsection
 
 @section('content')
-<style>
-.cart-btn {
-    border-radius: 35px;
-}
-.carousel-control-prev-icon,.carousel-control-next-icon {
-    background-color: black;
-}
-</style>
 
+<style>
+        .product-card {
+            /* border: 1px solid #eee;
+        border-radius: 5px; */
+            margin-bottom: 20px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            height: 100%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-card img {
+            width: 100%;
+            border-radius: 6px;
+        }
+        .product-image {
+            max-width: 100%;
+            height: auto;
+            /* border-radius: 10px; */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .discount-tag {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 5px 10px;
+            font-weight: bold;
+            font-size: 14px;
+            z-index: 1;
+            border-radius: 0 15px 15px 0;
+        }
+        .product-details {
+            padding: 10px;
+            text-align: center;
+        }
+        .product-title {
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 5px;
+        flex-grow: 1;
+        height: 45px;
+        margin: 10px 0;
+        }
+        .product-price {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        .original-price {
+            text-decoration: line-through;
+            color: #999;
+            margin-right: 5px;
+            font-size: 14px;
+        }
+        .discounted-price {
+            font-size: 16px;
+            color: var(--primary-color);
+        }
+
+    </style>
 
 <!-- Products Section 1 -->
 <section class="container mt-4 mb-5">
 
     <div class="row">
+
         <div class="col-md-4">
             <!-- Main Product Image -->
             <div class="mb-3">
@@ -80,15 +139,15 @@ $WebsiteSettingData = App\Models\WebsiteSettings::first();
             </div>
             @endif
         </div>
-        <div class="col-md-5">
-            <h2 class="product-details-title">{{ $product->name }}</h2>
+        <div class="col-md-6 offset-md-1">
+            <h2 class="product-details-title mt-4">{{ $product->name }}</h2>
             {{-- <p class="text-muted">Category: CHEESE200</p> --}}
 
 
             @if ($product->show_as == 'upcoming')
             <p class="text-danger">Upcoming Product</p>
             @else
-            <p class="price">
+            <p class="price mt-3">
 
                 @if ($product->discount_price > 0)
                 <span style="color:var(--tag-color)">MRP: Tk {{ $product->discount_price }}</span>  <span style="color:#999"><del>Tk {{ $product->sale_price }}</del></span>
@@ -100,61 +159,29 @@ $WebsiteSettingData = App\Models\WebsiteSettings::first();
             @endif
 
 
-
             @if ($product->show_as == 'upcoming')
             <div class="gap-2 d-grid d-md-flex"></div>
             @else
             <div class="gap-2 d-flex">
             {{-- <div class="gap-2 d-grid d-md-flex"> --}}
                 <div class="product" data-id="{{ $product->id }}">
-                    <button class="btn btn-primary me-2 btn-buy add-to-cart"><i class="fa fa-shopping-cart"></i> Add
+                    <button class="btn btn-theme me-2 btn-buy add-to-cart"><i class="fa fa-shopping-cart"></i> Add
                         to
                         Cart</button>
                 </div>
-                <a href="{{ route('cart.view') }}" class="btn-buy">View Cart</a>
+                <a href="{{ route('cart.view') }}" class="btn-theme btn-buy">View Cart</a>
             </div>
             @endif
 
-            <p class="mt-3">{!! $product->short_description !!}</p>
+            <p class="mt-3 mb-3">{!! $product->short_description !!}</p>
 
         </div>
 
-        {{-- Other Products section start  --}}
-
-        <div class="col-md-3 d-none d-lg-block">
-            <div class="related-product-section">
-                <div id="imageSlider" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                        @if ($OtherProducts->isNotEmpty())
-                            @foreach ($OtherProducts as $index => $OtherProduct)
-
-                                <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-                                    <div class="position-relative">
-                                        <a href="{{ route('product-details', ['category' => $OtherProduct->category->category_slug, 'name' => $OtherProduct->product_slug, 'id' => $OtherProduct->id]) }}">
-                                            <img src="/uploads/product/{{ $OtherProduct->image }}" class="d-block w-100" alt="{{ $OtherProduct->name }}">
-                                            <div class="product-caption-overlay">{{ $OtherProduct->name }}</div>
-                                        </a>
-                                    </div>
-                                </div>
-
-                            @endforeach
-                        @endif
-
-                    </div>
-
-                    <button class="carousel-control-prev" type="button" data-bs-target="#imageSlider" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#imageSlider" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                </div>
-            </div>
-        </div>
 
         <style>
+        .carousel-control-prev-icon,.carousel-control-next-icon {
+            background-color: black;
+        }
         .product-caption-overlay {
             position: absolute;
             bottom: 0;

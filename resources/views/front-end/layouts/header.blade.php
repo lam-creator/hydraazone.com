@@ -417,10 +417,10 @@
             @endif
 
             <!-- Search (Desktop) -->
-            <div class="search-form d-none d-lg-flex mx-4">
+            {{-- <div class="search-form d-none d-lg-flex mx-4">
                 <input type="text" placeholder="Search for products...">
                 <button type="button"><i class="fa-solid fa-magnifying-glass"></i></button>
-            </div>
+            </div> --}}
 
             <!-- User Actions -->
             <div class="d-flex gap-3 gap-lg-4 align-items-center">
@@ -510,7 +510,7 @@
                     <!-- Main Navigation Links (Responsive) -->
                     <ul class="navbar-nav main-nav flex-grow-1 justify-content-lg-between w-100">
                         <li class="nav-item">
-                            <a href="{{ route('home') }}" class="nav-link active-link">Home</a>
+                            <a href="{{ route('home') }}" class="nav-link">Home</a>
                         </li>
 
                         <!-- Responsive Dropdown for Shop -->

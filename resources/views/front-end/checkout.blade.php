@@ -200,7 +200,7 @@
                     <div class="mt-4 card payment-form">
                         <div class="p-0 card-body">
                             <div class="text-center">
-                                <button type="submit" class="btn btn-color-orange btn-block w-100">Order Now</button>
+                                <button type="submit" class="btn btn-theme btn-block w-100">Order Now</button>
                             </div>
                         </div>
                     </div>
