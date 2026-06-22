@@ -2,13 +2,13 @@
 @include('front-end.layouts.header')
 <!-- Header Section End -->
 
-<div>
+<main>
 
     {{-- Content section Start --}}
     @yield('content')
     {{-- Content section Ens --}}
 
-</div>
+</main>
 
 <!-- Footer Section Start -->
 @include('front-end.layouts.footer')

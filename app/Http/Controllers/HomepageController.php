@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Slider;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Feature;
+use App\Models\Banner;
+use App\Models\Trust;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\WebsiteSettings;
@@ -24,7 +27,7 @@ class HomepageController extends Controller
             'products' => fn($q) => $q->where('status', 'active')  // Ensure only active products
                 ->whereIn('show_as', ['general', 'featured'])
                 ->orderBy('id')
-                ->take(4)
+                // ->take(4)
         ])
         ->where('show_in_homepage', 'active') // Filter categories by show_in_homepage
         ->orderBy('id')
@@ -34,19 +37,34 @@ class HomepageController extends Controller
                     ->where('status', 'active')
                     ->where('show_as', 'featured')
                     ->orderBy('id', 'ASC')
-                    ->take(4)       // Limits the result to 8 products
+                    ->take(5)       // Limits the result to 5 products
+                    ->get();
+
+        $AllBanner = Banner::where('status', 'active')
+                    ->orderBy('id', 'ASC')
+                    // ->take(2)       // Limits the result to 2 products
+                    ->get();
+
+        $AllTrust = Trust::where('status', 'active')
+                    ->orderBy('id', 'ASC')
+                    // ->take(2)       // Limits the result to 2 products
+                    ->get();
+
+        $AllFeature = Feature::where('status', 'active')
+                    ->orderBy('id', 'ASC')
+                    // ->take(2)       // Limits the result to 2 products
                     ->get();
 
         $AllUpcomingProduct = Product::with('category', 'unit:id,name')
                     ->where('status', 'active')
                     ->where('show_as', 'upcoming')
                     ->orderBy('id', 'ASC')
-                    ->take(4)       // Limits the result to 8 products
+                    ->take(5)       // Limits the result to 5 products
                     ->get();
 
         $SeoData = WebsiteSettings::select('meta_title', 'meta_description', 'meta_keywords', 'logo', 'company_name')->first();
 
-        return view('front-end.index', compact('SeoData','AllSlider', 'AllCategoryProduct','AllFeaturedProduct','AllUpcomingProduct'));
+        return view('front-end.index', compact('SeoData','AllSlider', 'AllCategoryProduct','AllFeaturedProduct','AllUpcomingProduct','AllBanner','AllTrust','AllFeature'));
 
     }
 

@@ -1,81 +1,99 @@
-<!-- Footer Section -->
 @php
 $footerdata = App\Models\WebsiteSettings::first();
 @endphp
 
-<footer class="py-4 text-white bg-dark">
-    <div class="container">
-        <!-- Footer Top with Logo and Contact Info -->
-        <div class="mb-4 row">
-            <div class="col-md-4">
-                <div class="mb-3 d-flex my-align-items-center">
-                    <a href="{{ route('home') }}"><img src="/uploads/logo/{{ $footerdata->logo }}"
-                            alt="{{ $footerdata->company_name }}" class="footer-logo me-2" width="120"></a>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row mb-5 g-4">
+                <!-- Brand Info -->
+                <div class="col-lg-3 col-md-6 text-center text-md-start">
+
+                    {{-- if logo is null show company_name else show logo--}}
+                    @if ($footerdata->logo == null)
+                        <a href="{{ route('home') }}">
+                            <h2 class="serif-font fw-bold mb-3">{{ $footerdata->company_name }}</h2>
+                        </a>
+                    @else
+                        <a href="{{ route('home') }}">
+                            <img src="/uploads/logo/{{ $footerdata->logo }}" alt="{{ $footerdata->company_name }}" class="serif-font fw-bold mb-3">
+                        </a>
+                    @endif
+
+                    <p class="font-12 text-muted mb-4">{{ $footerdata->company_slogan }}</p>
+
+
+                    <div class="social-icons justify-content-center justify-content-md-start d-flex">
+                        <a href="{{ $footerdata->facebook_url }}" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="{{ $footerdata->instagram_url }}" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="{{ $footerdata->youtube_url }}" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="{{ $footerdata->twitter_url }}" target="_blank"><i class="fa-brands fa-x"></i></a>
+                    </div>
                 </div>
-                <p class="mb-3 small text-center">{{ $footerdata->company_slogan }}</p>
+
+                <!-- Quick Links -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-heading">Quick Links</div>
+                    <ul class="footer-links">
+                        @php
+                            $QuickLinks = App\Models\Page::where('location', 'footer_1')->get();
+                        @endphp
+
+                        @foreach ($QuickLinks as $quicklink)
+                            <li>
+                                <a class="text-decoration-none" href="{{ URL::to('/page') }}/{{ $quicklink->slug }}/{{ $quicklink->id }}">{{ $quicklink->title }}</a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+
+                <!-- Customer Service Links -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-heading">Customer Service</div>
+                    <ul class="footer-links">
+                        @php
+                            $CustomerServices = App\Models\Page::where('location', 'footer_2')->get();
+                        @endphp
+
+                        @foreach ($CustomerServices as $customerservice)
+                            <li>
+                                <a class="text-decoration-none" href="{{ URL::to('/page') }}/{{ $customerservice->slug }}/{{ $customerservice->id }}">{{ $customerservice->title }}</a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-heading">Contact Us</div>
+                    <ul class="footer-links">
+                        <li class="d-flex gap-2"><i class="fa-solid fa-phone mt-1"></i>{{ $footerdata->support_phone }}</li>
+                        <li class="d-flex gap-2"><i class="fa-solid fa-envelope mt-1"></i> {{ $footerdata->email }}</li>
+                        <li class="d-flex gap-2"><i class="fa-solid fa-location-dot mt-1"></i> {{ $footerdata->company_address }}</li>
+                    </ul>
+                </div>
             </div>
-            <div class="col-md-4">
-                <h5 class="mb-3 text-white">Contact Us</h5>
-                <ul class="list-unstyled">
-                    <li class="mb-2">
-                        <i class="fa fa-phone me-2"></i>
-                        <span>{{ $footerdata->phone }}</span>
-                    </li>
-                    <li class="mb-2">
-                        <i class="fa fa-phone me-2"></i>
-                        <span>{{ $footerdata->support_phone }}</span>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <h5 class="mb-3 text-white">Important Links</h5>
-                <!-- <h6 class="mb-2 text-white">Important Links</h6> -->
-                <ul class="list-unstyled">
 
-                    @php
-                        $UsefulLinks = App\Models\Page::where('location', 'footer')->get();
-                    @endphp
-
-                    @foreach ($UsefulLinks as $usefullink)
-                        <li>
-                            <a class="text-white text-decoration-none" href="{{ URL::to('/page') }}/{{ $usefullink->slug }}/{{ $usefullink->id }}">{{ $usefullink->title }}</a>
-                        </li>
-                    @endforeach
-
-                </ul>
+            <div class="d-flex flex-column justify-content-between align-items-center text-center text-md-start pt-4 border-top">
+                <p class="font-12 text-center text-muted mb-0">&copy; {!! $footerdata->copyright !!}. Developed by <a href="tel:+8801738225977">Nazmul</a></p>
             </div>
         </div>
+    </footer>
 
-        <!-- Copyright -->
-        <div class="mt-3 row">
-            <div class="text-center col-12 small">
-                <p class="mb-0">{!! $footerdata->copyright !!}. Developed by <a href="tel:+8801738225977" class="text-white">Nazmul</a>
-                </p>
-            </div>
-        </div>
-    </div>
-</footer>
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/back-end/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+    @stack('scripts')
 
-<!-- Sticky cart Start -->
-@include('front-end.layouts.sticky-cart')
-<!-- Sticky cart End -->
-
-
-<!-- Bootstrap 5 JS Bundle with Popper -->
-<script src="/front-end/js/bootstrap.bundle.min.js"></script>
-<script src="/back-end/plugins/sweetalert2/sweetalert2.all.min.js"></script>
-@stack('scripts')
-
-<script>
-$(document).ready(function() {
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
+    <script>
+    $(document).ready(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
     });
-});
-</script>
+    </script>
 
 </body>
-
 </html>
