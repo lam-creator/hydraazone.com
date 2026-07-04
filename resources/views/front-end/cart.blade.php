@@ -156,7 +156,7 @@
                     <div class="pt-5">
                         {{-- <a href="{{ route('user.checkout') }}" id="checkoutButton" class="btn btn-dark btn-block w-100">Proceed to Checkout</a> --}}
                         <a href="{{ route('user.checkout') }}" id="checkoutButton"
-                            class="btn checkout-btn btn-block w-100">Proceed to Checkout</a>
+                            class="btn btn-theme btn-block w-100">Proceed to Checkout</a>
                     </div>
                 </div>
 

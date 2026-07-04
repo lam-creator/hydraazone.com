@@ -239,7 +239,7 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-4 mb-4 mb-lg-0 text-center text-lg-start">
-                    <h3 class="serif-font m-0 fs-2">Why Trust <span class="text-primary-theme">Us?</span></h3>
+                    <h3 class="serif-font m-0 fs-2">Why Thousands Trust <span class="text-primary-theme">Us?</span></h3>
                 </div>
                 <div class="col-lg-8">
                     <div class="row text-white g-4 justify-content-center">

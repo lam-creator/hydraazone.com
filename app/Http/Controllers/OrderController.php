@@ -29,6 +29,7 @@ class OrderController extends Controller
         $request->validate([
             'name'       => 'required|string|min:3|max:80',
             'email'      => 'nullable|email|max:100',
+            'password'   => 'nullable|string|min:8|max:100',
             'phone'      => 'required|string|min:11|max:14',
             'zone'       => 'required',
             'address'    => 'required|string|min:3|max:255',
@@ -111,7 +112,7 @@ class OrderController extends Controller
 
                     $user = new User();
 
-                    $user->password = bcrypt(Str::random(8));
+                    $user->password = bcrypt($request->password );
                     $user->name = $request->name;
                     $user->phone = $request->phone;
                     $user->zone = $request->zone;

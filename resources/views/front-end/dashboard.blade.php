@@ -45,7 +45,7 @@
                             </div>
 
                             <div class="d-flex">
-                                <button type="submit" class="btn btn-color-orange">Update</button>
+                                <button type="submit" class="btn btn-primary btn-color-orange">Update</button>
                             </div>
                         </form>
 
