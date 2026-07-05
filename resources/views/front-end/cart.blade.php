@@ -142,12 +142,10 @@
                         <div>Shipping</div>
                         <div class="shipping"> ৳ {{ number_format($shipping, 2) }}</div>
                     </div> --}}
-                    @if($discount > 0)
-                    <div class="pb-2 d-flex justify-content-between">
+                    <div id="discount-row" class="pb-2 d-flex justify-content-between" style="display: {{ $discount > 0 ? 'flex' : 'none' }};">
                         <div>Discount</div>
-                        <div class="discount" style="color: green;">-৳ {{ number_format($discount, 2) }}</div>
+                        <div id="discount-amount" class="discount" style="color: green;">{{ $discount > 0 ? '-৳ ' . number_format($discount, 2) : '' }}</div>
                     </div>
-                    @endif
 					<hr>
                     <div class="d-flex justify-content-between summery-end">
                         <div>Total</div>
@@ -215,8 +213,37 @@
     @endif
 
     <script>
+        function parseCurrencyValue(value) {
+            var numericValue = String(value || '').replace(/[^0-9.-]/g, '');
+            var parsed = parseFloat(numericValue);
+            return isNaN(parsed) ? 0 : parsed;
+        }
 
+        function updateStickyCart(total, count) {
+            var itemCount = count !== undefined ? count : parseInt($('#cart-count-3').text() || 0);
+            $('#cart-count-3').text(itemCount);
+            $('#floating-cart-count').text(total.toFixed(2));
+        }
 
+        function updateOrderSummary(subtotal, shipping, discount) {
+            $('.subtotal').text('৳ ' + subtotal.toFixed(2));
+
+            if ($('.shipping').length) {
+                $('.shipping').text('৳ ' + shipping.toFixed(2));
+            }
+
+            if (discount > 0) {
+                $('#discount-row').show();
+                $('#discount-amount').text('-৳ ' + discount.toFixed(2));
+            } else {
+                $('#discount-row').hide();
+                $('#discount-amount').text('');
+            }
+
+            var total = subtotal + shipping - discount;
+            $('.total').text('৳ ' + total.toFixed(2));
+            updateStickyCart(total, parseInt($('#cart-count-3').text() || $('#cart-count-1').text() || 0));
+        }
 
         // Update cart quantity
         function updateQuantity(button, change) {
@@ -224,8 +251,6 @@
             var row = $(button).closest('tr');
             var productId = row.data('id');
             var input = row.find('.quantity');
-            var plusBtn = row.find('.btn-plus');
-            var minusBtn = row.find('.btn-minus');
             var currentQuantity = parseInt(input.val());
             var newQuantity = currentQuantity + change;
 
@@ -244,8 +269,6 @@
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
-                    // console.log(response);
-
                     if (response.message) {
                         toastr.success(response.message);
                     } else {
@@ -256,39 +279,21 @@
                         $('#cart-count-1').text(response.cartCount);
                         $('#cart-count-2').text(response.cartCount);
                         $('#cart-count-3').text(response.cartCount);
-                        $('#floating-cart-count').text(response.total.toFixed(2));
-                        $('.subtotal').text('Tk' + response.subtotal.toFixed(2));
-                        $('.shipping').text('Tk' + response.shipping.toFixed(2));
+                        updateStickyCart(response.total, response.cartCount);
 
-                        // Update or create discount line
-                        if (response.discount > 0) {
-                            if ($('.discount').length === 0) {
-                                $('.shipping').closest('.d-flex').after(
-                                    '<div class="pb-2 d-flex justify-content-between">' +
-                                    '<div>Discount</div>' +
-                                    '<div class="discount" style="color: green;">-Tk ' + response.discount.toFixed(2) + '</div>' +
-                                    '</div>'
-                                );
-                            } else {
-                                $('.discount').text('-Tk ' + response.discount.toFixed(2));
-                            }
-                        } else {
-                            // Remove discount line if no discount
-                            $('.discount').closest('.d-flex').remove();
-                        }
+                        var subtotal = response.subtotal !== undefined ? response.subtotal : parseCurrencyValue($('.subtotal').text());
+                        var shipping = response.shipping !== undefined ? response.shipping : (parseCurrencyValue($('.shipping').text()) || 0);
+                        var discount = response.discount !== undefined ? parseFloat(response.discount) : Math.abs(parseCurrencyValue($('#discount-amount').text()));
 
-                        $('.total').text('Tk' + response.total.toFixed(2));
+                        updateOrderSummary(subtotal, shipping, discount);
                     }
                 }
             });
         }
 
-
-
         // Apply coupon
         function applyCoupon() {
             var couponCode = $('#coupon_code').val();
-            var messageDiv = $('#message');
             var couponErrorMessage = $('#coupon-error-message');
 
             if (!couponCode) {
@@ -309,33 +314,17 @@
                         $('#coupon_code').val('');
                         toastr.success(response.success);
 
-                        // Update totals with discount
-                        if (response.discount) {
-                            var subtotal = parseFloat($('.subtotal').text().replace('Tk', '').replace(/,/g, ''));
-                            var shipping = parseFloat($('.shipping').text().replace('Tk', '').replace(/,/g, ''));
-                            var discount = response.discount;
-                            var newTotal = subtotal + shipping - discount;
+                        var subtotal = parseCurrencyValue($('.subtotal').text());
+                        var shipping = $('.shipping').length ? parseCurrencyValue($('.shipping').text()) : 0;
+                        var discount = parseFloat(response.discount || 0);
 
-                            // Display or update discount line
-                            if ($('.discount').length === 0) {
-                                $('.shipping').closest('.d-flex').after(
-                                    '<div class="pb-2 d-flex justify-content-between">' +
-                                    '<div>Discount</div>' +
-                                    '<div class="discount" style="color: green;">-Tk ' + discount.toFixed(2) + '</div>' +
-                                    '</div>'
-                                );
-                            } else {
-                                $('.discount').text('-Tk' + discount.toFixed(2));
-                            }
-                            $('.total').text('Tk' + newTotal.toFixed(2));
+                        updateOrderSummary(subtotal, shipping, discount);
 
-                            // Replace the coupon input form with success alert
-                            var couponFormHtml = '<div class="alert alert-success w-100" role="alert">' +
-                                '<strong>' + $('input[name="code"]').val() + '</strong> - Discount: Tk ' + discount.toFixed(2) +
-                                '<button type="button" class="btn btn-sm btn-danger float-end" onclick="removeCoupon()">Remove</button>' +
-                                '</div>';
-                            $('.apply-coupan').html(couponFormHtml);
-                        }
+                        var couponFormHtml = '<div class="alert alert-success w-100" role="alert">' +
+                            '<strong>' + couponCode + '</strong> - Discount: ৳ ' + discount.toFixed(2) +
+                            '<button type="button" class="btn btn-sm btn-danger float-end" onclick="removeCoupon()">Remove</button>' +
+                            '</div>';
+                        $('.apply-coupan').html(couponFormHtml);
                     } else if (response.error) {
                         couponErrorMessage.html('<span style="color: red;">' + response.error + '</span>');
                         toastr.error(response.error);
@@ -364,16 +353,10 @@
                     if (response.success) {
                         toastr.success(response.success);
 
-                        // Update totals (remove discount)
-                        var subtotal = parseFloat($('.subtotal').text().replace('Tk', '').replace(/,/g, ''));
-                        var shipping = parseFloat($('.shipping').text().replace('Tk', '').replace(/,/g, ''));
-                        var newTotal = subtotal + shipping;
+                        var subtotal = parseCurrencyValue($('.subtotal').text());
+                        var shipping = $('.shipping').length ? parseCurrencyValue($('.shipping').text()) : 0;
+                        updateOrderSummary(subtotal, shipping, 0);
 
-                        // Remove discount line
-                        $('.discount').closest('.d-flex').remove();
-                        $('.total').text('Tk' + newTotal.toFixed(2));
-
-                        // Replace the coupon alert with input form
                         var couponFormHtml = '<input type="text" name="code" id="coupon_code" placeholder="Coupon Code" class="form-control">' +
                             '<button class="btn btn-dark" type="button" id="button-apply-coupon" onclick="applyCoupon()">Apply Coupon</button>';
                         $('.apply-coupan').html(couponFormHtml);
@@ -415,13 +398,13 @@
                             $('#cart').html(
                                 '<tr><td colspan="5" style="text-align: center;">Your cart is empty.</td></tr>'
                             );
-                            $('#floating-cart-count').text('0.00'); // Fix: Ensure it shows 0
+                            updateStickyCart(0, 0);
                             $('.subtotal').text('Tk0.00');
                             $('.shipping').text('Tk0.00');
                             $('.discount').closest('.d-flex').remove();
                             $('.total').text('Tk0.00');
                         } else {
-                            $('#floating-cart-count').text(response.total.toFixed(2));
+                            updateStickyCart(response.total, response.cartCount);
                             $('.subtotal').text('Tk' + response.subtotal.toFixed(2));
                             $('.shipping').text('Tk' + response.shipping.toFixed(2));
 

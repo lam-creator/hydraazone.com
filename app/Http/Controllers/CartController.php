@@ -82,6 +82,7 @@ private function calculateCartTotals($cart)
             'cartCount' => array_sum(array_column($cart, 'quantity')),
             'subtotal' => $totals['subtotal'],
             'shipping' => $totals['shipping'],
+            'discount' => $totals['discount'],
             'total' => $totals['total'],
         ]);
     }
@@ -123,6 +124,7 @@ private function calculateCartTotals($cart)
             'cartCount' => array_sum(array_column($cart, 'quantity')),
             'subtotal' => $totals['subtotal'],
             'shipping' => $totals['shipping'],
+            'discount' => $totals['discount'],
             'total' => $totals['total'],
             'message' => $message
         ]);
@@ -147,6 +149,7 @@ private function calculateCartTotals($cart)
             'cartCount' => count($cart),
             'subtotal' => $totals['subtotal'],
             'shipping' => $totals['shipping'],
+            'discount' => $totals['discount'],
             'total' => $totals['total']
         ]);
     }

@@ -270,6 +270,18 @@ document.addEventListener('DOMContentLoaded', function() {
     const subtotalValue = parseFloat(document.getElementById('subtotal-value').value || 0);
     const discountValue = parseFloat(document.getElementById('discount-value').value || 0);
 
+    function updateStickyCart(total, count) {
+        const itemCount = count !== undefined ? count : parseInt(document.getElementById('cart-count-3')?.textContent || document.getElementById('cart-count-1')?.textContent || 0, 10) || 0;
+        document.querySelectorAll('[id^="cart-count-"]').forEach(function(el) {
+            el.textContent = itemCount;
+        });
+
+        const floatingCartCount = document.getElementById('floating-cart-count');
+        if (floatingCartCount) {
+            floatingCartCount.textContent = total.toFixed(2);
+        }
+    }
+
     function updateSummary() {
         const selectedOption = document.querySelector('.shipping-option:checked');
         const shipping = selectedOption && selectedOption.value === 'outside_dhaka' ? 120 : 80;
@@ -279,6 +291,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const total = subtotalValue + shipping - discountValue;
         orderTotalEl.textContent = '৳ ' + total.toFixed(2);
+        updateStickyCart(total);
     }
 
     shippingOptions.forEach(function(option) {
