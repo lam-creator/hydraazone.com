@@ -37,13 +37,22 @@ $footerdata = App\Models\WebsiteSettings::first();
                     <ul class="footer-links">
                         @php
                             $QuickLinks = App\Models\Page::where('location', 'footer_1')->get();
+                            $Footer1Links = App\Models\Link::where('location', 'footer_1')->get();
                         @endphp
+
+                        @foreach ($Footer1Links as $footer1link)
+                            <li>
+                                <a class="text-decoration-none" href="{{ $footer1link->link }}" target="_blank">{{ $footer1link->title }}</a>
+                            </li>
+                        @endforeach
 
                         @foreach ($QuickLinks as $quicklink)
                             <li>
                                 <a class="text-decoration-none" href="{{ URL::to('/page') }}/{{ $quicklink->slug }}/{{ $quicklink->id }}">{{ $quicklink->title }}</a>
                             </li>
                         @endforeach
+
+
                     </ul>
                 </div>
 
@@ -53,13 +62,22 @@ $footerdata = App\Models\WebsiteSettings::first();
                     <ul class="footer-links">
                         @php
                             $CustomerServices = App\Models\Page::where('location', 'footer_2')->get();
+
+                            $Footer2Links = App\Models\Link::where('location', 'footer_2')->get();
                         @endphp
+
+                        @foreach ($Footer2Links as $footer2link)
+                            <li>
+                                <a class="text-decoration-none" href="{{ $footer2link->link }}" target="_blank">{{ $footer2link->title }}</a>
+                            </li>
+                        @endforeach
 
                         @foreach ($CustomerServices as $customerservice)
                             <li>
                                 <a class="text-decoration-none" href="{{ URL::to('/page') }}/{{ $customerservice->slug }}/{{ $customerservice->id }}">{{ $customerservice->title }}</a>
                             </li>
                         @endforeach
+
                     </ul>
                 </div>
 

@@ -530,6 +530,16 @@
                             </ul>
                         </li>
 
+                        @php
+                            $MenuLinks = App\Models\Link::where('location', 'menu')->get();
+                        @endphp
+
+                        @foreach ($MenuLinks as $menuLink)
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ $menuLink->link }}" target="_blank">{{ $menuLink->title }}</a>
+                            </li>
+                        @endforeach
+
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('user.checkout') }}">Checkout</a>
                         </li>

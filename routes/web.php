@@ -14,6 +14,7 @@ use App\Http\Controllers\CouponController;
 use App\Http\Controllers\FeatureController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\LinkController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PermissionController;
@@ -118,6 +119,11 @@ Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
     Route::get('page_edit_data', [PageController::class, 'PageEditData'])->name('page.edit');
     Route::post('page_insert', [PageController::class, 'PageInsert'])->name('page.insert');
 
+    // Link  crud
+    Route::get('link', [LinkController::class, 'Link'])->name('link');
+    Route::get('link_data', [LinkController::class, 'LinkData'])->name('link.data');
+    Route::get('link_edit_data', [LinkController::class, 'LinkEditData'])->name('link.edit');
+    Route::post('link_insert', [LinkController::class, 'LinkInsert'])->name('link.insert');
 
     // City crud
     Route::get('city', [CityController::class, 'City'])->name('city');

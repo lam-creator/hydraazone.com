@@ -269,6 +269,16 @@
                 </li>
 
 
+                {{-- Link menu  --}}
+                <li class="nav-item">
+                    <a href="{{ route('admin.link') }}"
+                        class="nav-link {{ request()->routeIs('admin.link') ? 'active' : '' }}"><i
+                            class="nav-icon fas fa-th"></i>
+                        <p>Link</p>
+                    </a>
+                </li>
+
+
                 {{-- Sitemap menu --}}
 
                 <li class="nav-item">
