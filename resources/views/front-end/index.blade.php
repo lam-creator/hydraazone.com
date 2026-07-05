@@ -31,6 +31,23 @@
 
     @if($AllSlider->isNotEmpty())
 
+
+    <style>
+        .slider-background {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            // min-height: 100vh;
+            min-height: 500px; /* Adjust this value as needed */
+            max-height: 100vh; /* Optional: Prevents the slider from exceeding the viewport height */
+        }
+        .sider-content-bg {
+            background-color: rgba(255, 255, 255, 0.94); /* Adjust the opacity as needed */
+            padding: 20px;
+            border-radius: 10px;
+        }
+    </style>
+
     <!-- Hero Slider Section -->
     <section class="hero-section">
         <div id="mainHeroCarousel" class="carousel slide hero-carousel" data-bs-ride="carousel">
@@ -49,19 +66,19 @@
 
 
                         <!-- Slide 1 -->
-                        <div class="carousel-item {{ $index === 0 ? 'active' : '' }}" data-bs-interval="5000">
+                        <div style="background-image: url('{{ asset('uploads/slider/' . $slider->image) }}') " class="slider-background carousel-item {{ $index === 0 ? 'active' : '' }}" data-bs-interval="5000">
                             <div class="container hero-carousel-item-inner">
                                 <div class="row align-items-center flex-column-reverse flex-lg-row">
-                                    <div class="col-lg-6 mt-4 mt-lg-0">
+                                    <div class="col-lg-6 mt-4 mt-lg-0 sider-content-bg">
                                         <h1 class="hero-title serif-font">{{ $slider->title }}</h1>
                                         <p class="text-muted mb-4 fs-6 fs-lg-5">{{ $slider->slogan }}</p>
                                         <div class="d-flex gap-3 mb-4 mb-lg-5">
                                             <a href="{{ $slider->link }}" class="btn-theme">{{ $slider->button_text }} <i class="fa-solid fa-arrow-right ms-2"></i></a>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 position-relative">
+                                    {{-- <div class="col-lg-6 position-relative">
                                         <img src="{{ asset('uploads/slider/' . $slider->image) }}" alt="{{ $slider->title }}" class="hero-image shadow">
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
@@ -87,6 +104,17 @@
 
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4 justify-content-center">
 
+            <style>
+                .collection-card-text-area{
+                    background-color: rgba(22, 18, 18, 0.742);
+                    padding: 10px;
+                    border-radius: 5px;
+                }
+                .height-fix{
+                    height: 80px;
+                }
+            </style>
+
             @foreach ($AllCategoryProduct as $category)
             @if ($category->products->isNotEmpty())
 
@@ -95,7 +123,7 @@
                 <a href="{{ route('categorywise-product', ['name' => $category->category_slug, 'id' => $category->id]) }}">
                     <div class="collection-card">
                         <img src="{{ asset('uploads/category/' . $category->image) }}" alt="{{ $category->name }}">
-                        <div class="d-flex align-items-center justify-content-center gap-2">
+                        <div class="d-flex align-items-center justify-content-center gap-2 collection-card-text-area height-fix">
                             <img src="{{ asset('uploads/category/icon/' . $category->icon) }}" style="width: 24px;height:24px;" alt="{{ $category->name }}">
                             <div class="text-start">
                                 <div class="fw-bold font-14">{{ $category->name }}</div>
