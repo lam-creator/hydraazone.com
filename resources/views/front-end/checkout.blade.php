@@ -103,6 +103,25 @@
 
                             <div class="col-md-12">
                                 <div class="mb-3">
+                                    <label class="form-label">Shipping Method</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input shipping-option" type="radio" name="shipping_option" id="inside_dhaka" value="inside_dhaka" {{ old('shipping_option', session('shipping_option', 'inside_dhaka')) == 'inside_dhaka' ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="inside_dhaka">
+                                            Inside Dhaka — ৳80
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input shipping-option" type="radio" name="shipping_option" id="outside_dhaka" value="outside_dhaka" {{ old('shipping_option', session('shipping_option', 'inside_dhaka')) == 'outside_dhaka' ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="outside_dhaka">
+                                            Outside Dhaka — ৳120
+                                        </label>
+                                    </div>
+                                    <input type="hidden" name="shipping_charge" id="shipping-charge" value="{{ $shipping }}">
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="mb-3">
                                     <select name="zone" id="zone" class="form-control">
                                         <option value="">Select a zone</option>
 
@@ -186,7 +205,7 @@
                         </div>
                         <div class="mt-2 d-flex justify-content-between">
                             <div class="h6"><strong>Shipping</strong></div>
-                            <div class="h6"><strong>৳ {{ number_format($shipping, 2) }}</strong></div>
+                            <div class="h6"><strong id="shipping-amount">৳ {{ number_format($shipping, 2) }}</strong></div>
                         </div>
                         @if($discount > 0)
                         <div class="mt-2 d-flex justify-content-between">
@@ -197,8 +216,11 @@
                         <hr>
                         <div class="mt-2 d-flex justify-content-between summery-end">
                             <div class="h5"><strong>Total</strong></div>
-                            <div class="h5"><strong>৳ {{ number_format($total, 2) }}</strong></div>
+                            <div class="h5"><strong id="order-total">৳ {{ number_format($total, 2) }}</strong></div>
                         </div>
+
+                        <input type="hidden" id="subtotal-value" value="{{ $subtotal }}">
+                        <input type="hidden" id="discount-value" value="{{ $discount }}">
 
                     </div>
                 </div>
@@ -239,21 +261,44 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"
     integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const shippingOptions = document.querySelectorAll('.shipping-option');
+    const shippingAmountEl = document.getElementById('shipping-amount');
+    const orderTotalEl = document.getElementById('order-total');
+    const shippingChargeInput = document.getElementById('shipping-charge');
+    const subtotalValue = parseFloat(document.getElementById('subtotal-value').value || 0);
+    const discountValue = parseFloat(document.getElementById('discount-value').value || 0);
+
+    function updateSummary() {
+        const selectedOption = document.querySelector('.shipping-option:checked');
+        const shipping = selectedOption && selectedOption.value === 'outside_dhaka' ? 120 : 80;
+
+        shippingChargeInput.value = shipping;
+        shippingAmountEl.textContent = '৳ ' + shipping.toFixed(2);
+
+        const total = subtotalValue + shipping - discountValue;
+        orderTotalEl.textContent = '৳ ' + total.toFixed(2);
+    }
+
+    shippingOptions.forEach(function(option) {
+        option.addEventListener('change', updateSummary);
+    });
+
+    updateSummary();
+});
+</script>
 @if (session('message'))
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     Swal.fire({
-        title: '{{ session('
-        message ') }}',
-        icon: '{{ session('
-        alert - type ') }}', // 'error', 'success', 'warning', 'info'
-        // confirmButtonText: 'OK',
-        timer: 3000, // Auto close after 5 seconds
+        title: '{{ session('message') }}',
+        icon: '{{ session('alert-type') }}', // 'error', 'success', 'warning', 'info'
+        timer: 3000,
         timerProgressBar: true,
     });
 
-    toastr.error('{{ session('
-        message ') }}');
+    toastr.error('{{ session('message') }}');
 });
 </script>
 @endif

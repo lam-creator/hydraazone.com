@@ -191,6 +191,17 @@ private function calculateCartTotals($cart)
         }
 
         $totals = $this->calculateCartTotals($cart);
+        $shippingOption = $request->input('shipping_option', session('shipping_option', 'inside_dhaka'));
+        $shipping = $shippingOption === 'outside_dhaka' ? 120 : 80;
+
+        session([
+            'shipping' => $shipping,
+            'shipping_option' => $shippingOption,
+            'total' => $totals['subtotal'] + $shipping - $totals['discount'],
+            'subtotal' => $totals['subtotal'],
+            'discount' => $totals['discount']
+        ]);
+
         $zones = City::where('status', 'active')->orderBy('name', 'asc')->get();
         $user = auth()->user();
 
@@ -198,9 +209,9 @@ private function calculateCartTotals($cart)
             return response()->json([
                 'cart' => $cart,
                 'subtotal' => $totals['subtotal'],
-                'shipping' => $totals['shipping'],
+                'shipping' => $shipping,
                 'discount' => $totals['discount'],
-                'total' => $totals['total'],
+                'total' => $totals['subtotal'] + $shipping - $totals['discount'],
                 'cartCount' => count($cart),
             ]);
         }
@@ -208,9 +219,9 @@ private function calculateCartTotals($cart)
         return view('front-end.checkout', [
             'cart' => $cart,
             'subtotal' => $totals['subtotal'],
-            'shipping' => $totals['shipping'],
+            'shipping' => $shipping,
             'discount' => $totals['discount'],
-            'total' => $totals['total'],
+            'total' => $totals['subtotal'] + $shipping - $totals['discount'],
             'zones' => $zones,
             'user' => $user
         ]);

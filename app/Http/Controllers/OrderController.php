@@ -27,18 +27,23 @@ class OrderController extends Controller
     {
         // Validate request
         $request->validate([
-            'name'       => 'required|string|min:3|max:80',
-            'email'      => 'nullable|email|max:100',
-            'password'   => 'nullable|string|min:8|max:100',
-            'phone'      => 'required|string|min:11|max:14',
-            'zone'       => 'required',
-            'address'    => 'required|string|min:3|max:255',
-            'order_note' => 'nullable|string|max:200',
+            'name'           => 'required|string|min:3|max:80',
+            'email'          => 'nullable|email|max:100',
+            'password'       => 'nullable|string|min:8|max:100',
+            'phone'          => 'required|string|min:11|max:14',
+            'zone'           => 'required',
+            'address'        => 'required|string|min:3|max:255',
+            'order_note'     => 'nullable|string|max:200',
+            'shipping_option' => 'required|in:inside_dhaka,outside_dhaka',
         ]);
 
         // Get shipping
-        $shipping = session('shipping', 0);
-        $shipping = is_numeric($shipping) ? (float) $shipping : 0;
+        $shippingOption = $request->input('shipping_option', session('shipping_option', 'inside_dhaka'));
+        $shipping = $shippingOption === 'outside_dhaka' ? 120 : 80;
+        session([
+            'shipping' => $shipping,
+            'shipping_option' => $shippingOption,
+        ]);
 
         // Get cart
         $cart = session('cart', []);

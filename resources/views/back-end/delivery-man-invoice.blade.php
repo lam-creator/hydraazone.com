@@ -82,16 +82,21 @@
 
     <button onclick="window.print()" class="print-btn">Print</button>
 
+    @php
+    $WebsiteData = App\Models\WebsiteSettings::first();
+    @endphp
+
+
     {{-- HEADER --}}
     <div class="center">
-        <div class="logo">MA IMPORT AND SUPPLIER</div>
+        <div class="logo">{{ $WebsiteData->company_name }}</div>
         <div class="small">ESTD 2026</div>
     </div>
 
     <div class="divider"></div>
 
     <div class="small center">
-        25/38 Rajabari, Savar, Dhaka-1340, Bangladesh
+        {{ $WebsiteData->company_address }}
     </div>
 
     <div class="divider"></div>
@@ -183,10 +188,10 @@
 
     {{-- FOOTER --}}
     <div class="footer">
-        Thank you for choosing MA IMPORT AND SUPPLIER<br>
+        Thank you for choosing {{ $WebsiteData->company_name }}<br>
         This is a computer-generated invoice.<br>
         Please check products at delivery.<br><br>
-        Support: 01609-272855
+        Support: {{ $WebsiteData->support_phone }}
     </div>
 
 </div>

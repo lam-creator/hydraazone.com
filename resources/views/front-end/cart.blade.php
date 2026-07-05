@@ -138,10 +138,10 @@
                         <div>Subtotal</div>
                         <div class="subtotal"> ৳ {{ number_format($subtotal, 2) }}</div>
                     </div>
-                    <div class="pb-2 d-flex justify-content-between">
+                    {{-- <div class="pb-2 d-flex justify-content-between">
                         <div>Shipping</div>
                         <div class="shipping"> ৳ {{ number_format($shipping, 2) }}</div>
-                    </div>
+                    </div> --}}
                     @if($discount > 0)
                     <div class="pb-2 d-flex justify-content-between">
                         <div>Discount</div>
