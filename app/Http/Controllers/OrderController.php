@@ -14,6 +14,8 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\WelcomeEmail;
 
 class OrderController extends Controller
 {
@@ -28,7 +30,7 @@ class OrderController extends Controller
         // Validate request
         $request->validate([
             'name'           => 'required|string|min:3|max:80',
-            'email'          => 'nullable|email|max:100',
+            'email'          => 'required|email|max:100',
             'password'       => 'nullable|string|min:8|max:100',
             'phone'          => 'required|string|min:11|max:14',
             'zone'           => 'required',
@@ -132,6 +134,12 @@ class OrderController extends Controller
                     // log in the user after creating account
                     Auth::login($user);
 
+                    // Send welcome email
+                    if (!empty($user->email)) {
+                        Mail::to($user->email)
+                            ->send(new WelcomeEmail($user, $request->password));
+                    }
+
                 }
             }
 
@@ -195,6 +203,8 @@ class OrderController extends Controller
                 $orderItem->product_id = $product->id;
                 $orderItem->quantity = (int) $item['quantity'];
                 $orderItem->price = (float) $productPrice;
+                $orderItem->variant_id = $item['variant_id'] ?? null;
+                $orderItem->variant_label = $item['variant_label'] ?? null;
 
                 $orderItem->total_price =
                     ((float) $productPrice) * ((int) $item['quantity']);

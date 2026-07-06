@@ -89,6 +89,7 @@
                         <tr>
                             <th>#</th>
                             <th>Product Name</th>
+                            <th>Variant</th>
                             <th>Quantity</th>
                             <th>Price</th>
                             <th>Total Price</th>
@@ -213,6 +214,7 @@ $(function() {
                             <tr>
                                 <td>${index + 1}</td>
                                 <td>${item.product ? item.product.name : 'N/A'}</td>
+                                <td>${item.variant_id ? item.variant_label : 'N/A'}</td>
                                 <td>${item.quantity}</td>
                                 <td>${item.price}</td>
                                 <td>${item.total_price} Taka</td>

@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Unit;
 use App\Models\Category;
 use App\Models\ProductImages;
+use App\Models\ProductVariant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
@@ -30,7 +31,7 @@ class ProductController extends Controller
 
     public function ProductEditData(Request $request)
     {
-        $query = Product::find($request->id); // Model will change
+        $query = Product::with('variants')->find($request->id); // Model will change
         if(!$query){
             return response()->json([
             'status' => "error",
@@ -118,6 +119,9 @@ class ProductController extends Controller
                 $img                = $manager->read($file);
                 $img                = $img->resize(300,400);
                 $destinationPath    = public_path('uploads/product/');  // Directory name will change
+                if (!is_dir($destinationPath)) {
+                    mkdir($destinationPath, 0755, true);
+                }
                 $img->save($destinationPath.$filename);
                 $query->image       = $filename;
 
@@ -155,6 +159,26 @@ class ProductController extends Controller
             }
 
             $query->save();
+
+            if ($request->has('variants') && is_array($request->variants)) {
+                $query->variants()->delete();
+
+                foreach ($request->variants as $variantData) {
+                    if (empty($variantData['type']) || empty($variantData['value'])) {
+                        continue;
+                    }
+
+                    ProductVariant::create([
+                        'product_id' => $query->id,
+                        'type' => $variantData['type'],
+                        'value' => $variantData['value'],
+                        'price_adjustment' => $variantData['price_adjustment'] ?? 0,
+                        'stock' => $variantData['stock'] ?? 0,
+                        'sku' => $variantData['sku'] ?? null,
+                        'status' => $variantData['status'] ?? 'active',
+                    ]);
+                }
+            }
 
             // Handle gallery images
             if ($request->hasFile('gallery_images')) {

@@ -46,4 +46,9 @@ class Product extends Model
         return $this->belongsTo('App\Models\Unit', 'unit_id', 'id');
     }
 
+    public function variants()
+    {
+        return $this->hasMany(ProductVariant::class);
+    }
+
 }

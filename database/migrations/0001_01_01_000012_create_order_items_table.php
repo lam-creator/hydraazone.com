@@ -18,6 +18,8 @@ return new class extends Migration
             $table->integer('quantity')->nullable();
             $table->decimal('price', 10, 2)->nullable();
             $table->decimal('total_price', 10, 2)->nullable();
+            $table->unsignedBigInteger('variant_id')->nullable();
+            $table->string('variant_label')->nullable();
             $table->timestamps();
 
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');

@@ -220,7 +220,7 @@ class AdminOrderController extends Controller
     {
         $query = Order::with([  // Model will change
             'city:id,name',
-            'items:id,order_id,product_id,quantity,price,total_price',
+            'items:id,order_id,product_id,quantity,price,total_price,variant_id,variant_label',
             'items.product:id,name'
         ])->find($request->id);
 

@@ -80,6 +80,7 @@
                         <thead>
                             <tr>
                                 <th>Item</th>
+                                <th>Product Variant</th>
                                 <th>Price</th>
                                 <th>Quantity</th>
                                 <th>Remove</th>
@@ -93,6 +94,13 @@
                                             <div class="d-flex align-items-center content-left">
                                                 <p>{{ $item['name'] }}</p>
                                             </div>
+                                        </td>
+                                        <td>
+                                            @if(isset($item['variant_label']) && !empty($item['variant_label']))
+                                                <span class="badge bg-secondary">{{ $item['variant_label'] }}</span>
+                                            @else
+                                                <span class="text-muted">No</span>
+                                            @endif
                                         </td>
                                         <td>৳ {{ $item['price'] }}</td>
                                         <td>

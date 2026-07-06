@@ -50,6 +50,7 @@ private function calculateCartTotals($cart)
         ]);
 
         $productId = $request->product_id;
+        $variantId = $request->variant_id;
         $quantity = $request->quantity ?? 1;
 
         $product = Product::find($productId);
@@ -60,15 +61,19 @@ private function calculateCartTotals($cart)
 
         $cart = Session::get('cart', []);
 
-        if (isset($cart[$productId])) {
-            $cart[$productId]['quantity'] += $quantity;
+        $cartKey = $productId . ':' . ($variantId ?? 'default');
+
+        if (isset($cart[$cartKey])) {
+            $cart[$cartKey]['quantity'] += $quantity;
         } else {
 
-            $cart[$productId] = [
+            $cart[$cartKey] = [
                 'id' => $product->id,
                 'name' => $product->name,
                 'price' => $productPrice,
                 'quantity' => $quantity,
+                'variant_id' => $variantId,
+                'variant_label' => $variantId ? optional($product->variants()->find($variantId))->type . ': ' . optional($product->variants()->find($variantId))->value : null,
             ];
         }
 

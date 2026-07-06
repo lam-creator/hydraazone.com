@@ -95,6 +95,42 @@ $WebsiteSettingData = App\Models\WebsiteSettings::first();
             color: var(--primary-color);
         }
 
+        .variant-options {
+            gap: 10px;
+        }
+
+        .variant-option {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 999px;
+            background: #fff;
+            color: #333;
+            font-weight: 600;
+            transition: all 0.25s ease;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+            cursor: pointer;
+        }
+
+        .variant-option:hover {
+            transform: translateY(-2px);
+            border-color: #f38b00;
+            box-shadow: 0 6px 14px rgba(243, 139, 0, 0.18);
+        }
+
+        .variant-option.active {
+            background: #f38b00;
+            color: #fff;
+            border-color: #f38b00;
+            box-shadow: 0 8px 18px rgba(243, 139, 0, 0.28);
+        }
+
+        .variant-option small {
+            opacity: 0.9;
+        }
+
     </style>
 
 <!-- Products Section 1 -->
@@ -143,6 +179,33 @@ $WebsiteSettingData = App\Models\WebsiteSettings::first();
             <h2 class="product-details-title mt-4">{{ $product->name }}</h2>
             {{-- <p class="text-muted">Category: CHEESE200</p> --}}
 
+            @if ($product->variants->isNotEmpty())
+                <div class="mt-3">
+                    <h6 class="mb-2">Available Variants</h6>
+                    <div class="variant-options d-flex flex-wrap gap-2">
+                        @foreach ($product->variants as $index => $variant)
+                            <label class="variant-option badge rounded-pill px-3 py-2 border {{ $index === 0 ? 'active' : '' }}"
+                                   data-variant-id="{{ $variant->id }}"
+                                   data-variant-type="{{ $variant->type }}"
+                                   data-variant-value="{{ $variant->value }}"
+                                   data-price-adjustment="{{ $variant->price_adjustment }}"
+                                   style="cursor:pointer;">
+                                <input type="radio" name="selected_variant" value="{{ $variant->id }}" class="d-none" {{ $index === 0 ? 'checked' : '' }}>
+                                <span>{{ $variant->type }}: {{ $variant->value }}</span>
+                                @if ($variant->price_adjustment != 0)
+                                    <small class="ms-1">
+                                        @if ($variant->price_adjustment > 0)
+                                            (+Tk {{ number_format($variant->price_adjustment, 2) }})
+                                        @else
+                                            (Tk {{ number_format($variant->price_adjustment, 2) }})
+                                        @endif
+                                    </small>
+                                @endif
+                            </label>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
 
             @if ($product->show_as == 'upcoming')
             <p class="text-danger">Upcoming Product</p>
@@ -341,21 +404,27 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <script>
 	$(document).ready(function() {
-		$('.add-to-cart').click(function() {
+        $('.variant-option').on('click', function() {
+            $('.variant-option').removeClass('active').css('border-color', '#dee2e6');
+            $(this).addClass('active').css('border-color', '#0d6efd');
+            $(this).find('input[type="radio"]').prop('checked', true);
+        });
 
+		$('.add-to-cart').click(function() {
 			var productId = $(this).closest('.product').data('id');
+            var selectedVariantId = $('input[name="selected_variant"]:checked').val();
 
 			$.ajax({
 				url: '{{ route('cart.add') }}',
 				method: 'POST',
 				data: {
 					product_id: productId,
+					variant_id: selectedVariantId,
 					_token: '{{ csrf_token() }}'
 				},
 				success: function(response) {
 					console.log(response);
 
-                    // Show warning message and skip success if max quantity reached
                     if (response.message) {
                         toastr.warning(response.message);
                     } else {

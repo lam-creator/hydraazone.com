@@ -110,6 +110,15 @@
                                         </div>
                                     </div>
 
+                                    <div class="col-lg-12">
+                                        <div class="mb-4 form-group">
+                                            <label>Product Variants</label>
+                                            <div id="variant-rows" class="border rounded p-3 bg-light"></div>
+                                            <button type="button" class="btn btn-outline-secondary btn-sm mt-2" id="add-variant-row">Add Variant</button>
+                                            <small class="text-muted d-block mt-1">Example: Color=Red, Size=M, etc.</small>
+                                        </div>
+                                    </div>
+
                                     <div class="col-lg-6">
                                         <div class="mb-4 form-group">
                                             <label for="exampleInputName">Sale Price <span
@@ -493,6 +502,84 @@
                 });
             }
 
+            function renderVariantRows(variants = []) {
+                let container = $('#variant-rows');
+                container.empty();
+
+                if (variants.length === 0) {
+                    variants = [{ type: '', value: '', price_adjustment: '', stock: '', sku: '', status: 'active' }];
+                }
+
+                variants.forEach(function(variant, index) {
+                    container.append(`
+                        <div class="row variant-row mb-2" data-index="${index}">
+                            <div class="col-md-2">
+                                <input type="text" class="form-control form-control-sm" name="variants[${index}][type]" value="${variant.type || ''}" placeholder="Type">
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" class="form-control form-control-sm" name="variants[${index}][value]" value="${variant.value || ''}" placeholder="Value">
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" step="0.01" class="form-control form-control-sm" name="variants[${index}][price_adjustment]" value="${variant.price_adjustment || 0}" placeholder="Price Adj.">
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" class="form-control form-control-sm" name="variants[${index}][stock]" value="${variant.stock || 0}" placeholder="Stock">
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" class="form-control form-control-sm" name="variants[${index}][sku]" value="${variant.sku || ''}" placeholder="SKU">
+                            </div>
+                            <div class="col-md-1">
+                                <select class="form-control form-control-sm" name="variants[${index}][status]">
+                                    <option value="active" ${variant.status === 'active' ? 'selected' : ''}>Active</option>
+                                    <option value="inactive" ${variant.status === 'inactive' ? 'selected' : ''}>Inactive</option>
+                                </select>
+                            </div>
+                            <div class="col-md-1 text-right">
+                                <button type="button" class="btn btn-danger btn-sm remove-variant-row">×</button>
+                            </div>
+                        </div>
+                    `);
+                });
+            }
+
+            $(document).on('click', '#add-variant-row', function() {
+                let index = $('#variant-rows .variant-row').length;
+                $('#variant-rows').append(`
+                    <div class="row variant-row mb-2" data-index="${index}">
+                        <div class="col-md-2">
+                            <input type="text" class="form-control form-control-sm" name="variants[${index}][type]" placeholder="Type">
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control form-control-sm" name="variants[${index}][value]" placeholder="Value">
+                        </div>
+                        <div class="col-md-2">
+                            <input type="number" step="0.01" class="form-control form-control-sm" name="variants[${index}][price_adjustment]" value="0" placeholder="Price Adj.">
+                        </div>
+                        <div class="col-md-2">
+                            <input type="number" class="form-control form-control-sm" name="variants[${index}][stock]" value="0" placeholder="Stock">
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control form-control-sm" name="variants[${index}][sku]" placeholder="SKU">
+                        </div>
+                        <div class="col-md-1">
+                            <select class="form-control form-control-sm" name="variants[${index}][status]">
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                        </div>
+                        <div class="col-md-1 text-right">
+                            <button type="button" class="btn btn-danger btn-sm remove-variant-row">×</button>
+                        </div>
+                    </div>
+                `);
+            });
+
+            $(document).on('click', '.remove-variant-row', function() {
+                $(this).closest('.variant-row').remove();
+            });
+
+            renderVariantRows();
+
             $(document).on('click', '.tableEdit', function() {
                 let Id = $(this).data('id');
                 $('.modal-title').text('Update Product');
@@ -525,6 +612,12 @@
                             .additional_info);
                         $('select[name^="status"]').val(responseText.data.status);
                         $('select[name^="show_as"]').val(responseText.data.show_as);
+
+                        if (responseText.data.variants && responseText.data.variants.length) {
+                            renderVariantRows(responseText.data.variants);
+                        } else {
+                            renderVariantRows();
+                        }
 
                         // Load existing gallery images
                         loadExistingGalleryImages(Id);

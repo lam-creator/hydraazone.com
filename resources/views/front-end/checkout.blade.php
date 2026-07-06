@@ -38,7 +38,7 @@
 
         <div class="row">
 
-            <div class="col-md-7">
+            <div class="col-md-6">
                 <div class="sub-title">
                     <h2>Shipping Address</h2>
                 </div>
@@ -165,7 +165,7 @@
                 </div>
             </div>
 
-            <div class="col-md-5">
+            <div class="col-md-6">
                 <div class="sub-title">
                     <h2>Order Summery</h3>
                 </div>
@@ -178,6 +178,7 @@
                             <thead>
                                 <tr>
                                     <th>Product</th>
+                                    <th>Product Variant</th>
                                     <th>Quantity</th>
                                     <th>Total</th>
                                 </tr>
@@ -188,6 +189,13 @@
                         @foreach ($cart as $productId => $item)
                         <tr>
                             <td>{{ $item['name'] }}</td>
+                            <td>
+                                @if(isset($item['variant_label']) && !empty($item['variant_label']))
+                                    <span class="badge bg-secondary">{{ $item['variant_label'] }}</span>
+                                @else
+                                    <span class="text-muted">No</span>
+                                @endif
+                            </td>
                             <td>{{ $item['quantity'] }}</td>
                             <td>৳ {{ $item['price'] * $item['quantity'] }}</td>
                         </tr>

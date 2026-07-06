@@ -41,11 +41,7 @@
             min-height: 500px; /* Adjust this value as needed */
             max-height: 100vh; /* Optional: Prevents the slider from exceeding the viewport height */
         }
-        .sider-content-bg {
-            background-color: rgba(255, 255, 255, 0.94); /* Adjust the opacity as needed */
-            padding: 20px;
-            border-radius: 10px;
-        }
+
     </style>
 
     <!-- Hero Slider Section -->
@@ -105,10 +101,13 @@
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4 justify-content-center">
 
             <style>
-                .collection-card-text-area{
+
+                .collection-card-text-area {
                     background-color: rgba(22, 18, 18, 0.742);
-                    padding: 10px;
                     border-radius: 5px;
+                    position: absolute;
+                    bottom: 15px;
+                    width: 100%;
                 }
                 .height-fix{
                     height: 80px;
@@ -124,7 +123,7 @@
                     <div class="collection-card">
                         <img src="{{ asset('uploads/category/' . $category->image) }}" alt="{{ $category->name }}">
                         <div class="d-flex align-items-center justify-content-center gap-2 collection-card-text-area height-fix">
-                            <img src="{{ asset('uploads/category/icon/' . $category->icon) }}" style="width: 24px;height:24px;" alt="{{ $category->name }}">
+                            <img src="{{ asset('uploads/category/icon/' . $category->icon) }}" style="width: 30px;height:30px; padding:3px;background-color: #fff;" alt="{{ $category->name }}">
                             <div class="text-start">
                                 <div class="fw-bold text-white font-14">{{ $category->name }}</div>
                                 <div class="text-white font-12">{{ $category->products->count() }} Product</div>
