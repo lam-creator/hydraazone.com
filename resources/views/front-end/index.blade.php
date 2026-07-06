@@ -126,8 +126,8 @@
                         <div class="d-flex align-items-center justify-content-center gap-2 collection-card-text-area height-fix">
                             <img src="{{ asset('uploads/category/icon/' . $category->icon) }}" style="width: 24px;height:24px;" alt="{{ $category->name }}">
                             <div class="text-start">
-                                <div class="fw-bold font-14">{{ $category->name }}</div>
-                                <div class="text-muted font-12">{{ $category->products->count() }} Product</div>
+                                <div class="fw-bold text-white font-14">{{ $category->name }}</div>
+                                <div class="text-white font-12">{{ $category->products->count() }} Product</div>
                             </div>
                         </div>
                     </div>
