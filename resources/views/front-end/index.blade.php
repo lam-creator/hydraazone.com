@@ -41,11 +41,19 @@
             // min-height: 500px; /* Adjust this value as needed */
             // max-height: 100vh; /* Optional: Prevents the slider from exceeding the viewport height */
         }
+        .sider-content-bg {
+                margin: 0 30px;
+                width: 70%;
+            }
 
         /* Tablet */
         @media (max-width: 991px) {
             .slider-background {
                 min-height: 400px;
+            }
+            .sider-content-bg {
+                margin: 0 30px;
+                width: 70%;
             }
         }
 
@@ -55,6 +63,10 @@
                 min-height: 300px;
                 background-position: center center;
             }
+            .sider-content-bg {
+                margin: 0 30px;
+                width: 85%;
+            }
         }
 
         /* Small Mobile */
@@ -62,10 +74,16 @@
             .slider-background {
                 min-height: 250px;
             }
+            .sider-content-bg {
+                margin: 0 30px;
+                width: 85%;
+            }
+        }
 
     </style>
 
     <!-- Hero Slider Section -->
+    <div class="container">
     <section class="hero-section">
         <div id="mainHeroCarousel" class="carousel slide hero-carousel" data-bs-ride="carousel">
 
@@ -108,109 +126,7 @@
             </div>
         </div>
     </section>
-
-    @endif
-
-    <!-- Shop by Collection -->
-    <section class="container my-5">
-        <div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-end mb-4 gap-2">
-            <h3 class="fw-bold m-0">Shop by Collection</h3>
-            {{-- <a href="#" class="text-primary-theme fw-medium">Browse All Categories <i class="fa-solid fa-arrow-right"></i></a> --}}
-        </div>
-
-
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4 justify-content-center">
-
-            <style>
-
-                .collection-card-text-area {
-                    background-color: rgba(22, 18, 18, 0.742);
-                    border-radius: 5px;
-                    position: absolute;
-                    bottom: 15px;
-                    width: 100%;
-                }
-                .height-fix{
-                    height: 80px;
-                }
-            </style>
-
-            @foreach ($AllCategoryProduct as $category)
-            @if ($category->products->isNotEmpty())
-
-            <!-- Col -->
-            <div class="col">
-                <a href="{{ route('categorywise-product', ['name' => $category->category_slug, 'id' => $category->id]) }}">
-                    <div class="collection-card">
-                        <img src="{{ asset('uploads/category/' . $category->image) }}" alt="{{ $category->name }}">
-                        <div class="d-flex align-items-center justify-content-center gap-2 collection-card-text-area height-fix">
-                            <img src="{{ asset('uploads/category/icon/' . $category->icon) }}" style="width: 30px;height:30px; padding:3px;background-color: #fff;" alt="{{ $category->name }}">
-                            <div class="text-start">
-                                <div class="fw-bold text-white font-14">{{ $category->name }}</div>
-                                <div class="text-white font-12">{{ $category->products->count() }} Product</div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            @endif
-            @endforeach
-
-        </div>
-
-    </section>
-
-
-    @if($AllBanner->isNotEmpty())
-
-    <!-- Banner Section -->
-    <section class="container my-5">
-        <div class="row g-4">
-
-            @if ($AllBanner->isNotEmpty())
-                @foreach ($AllBanner as $Banner)
-
-                    <div class="col-md-6">
-                        <div class="banner-card banner-dark" style="background-image: linear-gradient(to right, #1a1a1a 60%, transparent), url('{{ asset('uploads/banner/' . $Banner->image) }}');">
-                            <div class="w-75">
-                                <h2 class="serif-font mb-3 fs-3">{{ $Banner->title }}</h2>
-                                <p class="font-14 text-light mb-4">{{ $Banner->slogan }}</p>
-                                <a href="{{ $Banner->link }}" class="btn btn-light fw-bold font-14 px-3 py-2">{{ $Banner->button_text }}<i class="fa-solid fa-arrow-right ms-2"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                @endforeach
-            @endif
-
-        </div>
-    </section>
-
-    @endif
-
-    @if($AllFeature->isNotEmpty())
-
-    <!-- Features Bar -->
-    <section class="container features-bar mb-5">
-        <div class="row g-3">
-
-            @if ($AllFeature->isNotEmpty())
-                @foreach ($AllFeature as $Feature)
-
-                    <div class="col-6 col-md-3 feature-item">
-                        <img src="{{ asset('uploads/feature/' . $Feature->image) }}" alt="{{ $Feature->title }}" class="img-fluid">
-                        <div>
-                            <div class="fw-bold font-14">{{ $Feature->title }}</div>
-                            <div class="text-muted font-12">{{ $Feature->slogan }}</div>
-                        </div>
-                    </div>
-                @endforeach
-            @endif
-
-        </div>
-    </section>
-
+    </div>
     @endif
 
 
@@ -279,6 +195,109 @@
     </section>
 
     @endif
+
+    <!-- Shop by Collection -->
+    <section class="container my-5">
+        <div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-end mb-4 gap-2">
+            <h3 class="fw-bold m-0">Shop by Collection</h3>
+            {{-- <a href="#" class="text-primary-theme fw-medium">Browse All Categories <i class="fa-solid fa-arrow-right"></i></a> --}}
+        </div>
+
+
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4 justify-content-center">
+
+            <style>
+
+                .collection-card-text-area {
+                    background-color: rgba(22, 18, 18, 0.742);
+                    border-radius: 5px;
+                    position: absolute;
+                    bottom: 15px;
+                    width: 100%;
+                }
+                .height-fix{
+                    height: 80px;
+                }
+            </style>
+
+            @foreach ($AllCategoryProduct as $category)
+            @if ($category->products->isNotEmpty())
+
+            <!-- Col -->
+            <div class="col">
+                <a href="{{ route('categorywise-product', ['name' => $category->category_slug, 'id' => $category->id]) }}">
+                    <div class="collection-card">
+                        <img src="{{ asset('uploads/category/' . $category->image) }}" alt="{{ $category->name }}">
+                        <div class="d-flex align-items-center justify-content-center gap-2 collection-card-text-area height-fix">
+                            <img src="{{ asset('uploads/category/icon/' . $category->icon) }}" style="width: 30px;height:30px; padding:3px;background-color: #fff;" alt="{{ $category->name }}">
+                            <div class="text-start">
+                                <div class="fw-bold text-white font-14">{{ $category->name }}</div>
+                                <div class="text-white font-12">{{ $category->products->count() }} Product</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            @endif
+            @endforeach
+
+        </div>
+
+    </section>
+
+
+    @if($AllBanner->isNotEmpty())
+
+    <!-- Banner Section -->
+    <section class="container my-5">
+        <div class="row g-4">
+
+            @if ($AllBanner->isNotEmpty())
+                @foreach ($AllBanner as $Banner)
+
+                    <div class="col-md-6">
+                        <div class="banner-card banner-dark" style="background-image: linear-gradient(to right, #1a1a1a 30%, transparent), url('{{ asset('uploads/banner/' . $Banner->image) }}');">
+                            <div class="w-75">
+                                <h2 class="serif-font mb-3 fs-3">{{ $Banner->title }}</h2>
+                                <p class="font-14 text-light mb-4">{{ $Banner->slogan }}</p>
+                                <a href="{{ $Banner->link }}" class="btn btn-light fw-bold font-14 px-3 py-2">{{ $Banner->button_text }}<i class="fa-solid fa-arrow-right ms-2"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                @endforeach
+            @endif
+
+        </div>
+    </section>
+
+    @endif
+
+    @if($AllFeature->isNotEmpty())
+
+    <!-- Features Bar -->
+    <section class="container features-bar mb-5">
+        <div class="row g-3">
+
+            @if ($AllFeature->isNotEmpty())
+                @foreach ($AllFeature as $Feature)
+
+                    <div class="col-6 col-md-3 feature-item">
+                        <img src="{{ asset('uploads/feature/' . $Feature->image) }}" alt="{{ $Feature->title }}" class="img-fluid">
+                        <div>
+                            <div class="fw-bold font-14">{{ $Feature->title }}</div>
+                            <div class="text-muted font-12">{{ $Feature->slogan }}</div>
+                        </div>
+                    </div>
+                @endforeach
+            @endif
+
+        </div>
+    </section>
+
+    @endif
+
 
     @if($AllTrust->isNotEmpty())
 
