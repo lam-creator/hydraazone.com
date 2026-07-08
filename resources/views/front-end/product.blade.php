@@ -306,7 +306,7 @@ $WebsiteSettingData = App\Models\WebsiteSettings::first();
 
             @if ($OtherProducts->isNotEmpty())
                 @foreach ($OtherProducts as $OtherProduct)
-                    <div class="col-6 col-md-3">
+                    <div class="col-12 col-md-3">
                         <div class="product-card">
                             <div class="product-image">
 

@@ -220,6 +220,8 @@ Route::get('/cart', [CartController::class, 'viewCart'])->name('cart.view');
 Route::get('user/checkout', [CartController::class, 'Checkout'])->name('user.checkout');
 Route::get('/order-confirm', [OrderController::class, 'index'])->name('order-confirm');
 
+// search
+Route::get('/search', [HomepageController::class, 'Search'])->name('products.search');
 
 
 // User Section

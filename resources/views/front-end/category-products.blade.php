@@ -109,7 +109,7 @@
             @if ($AllCategoryProduct->isNotEmpty())
                 @foreach ($AllCategoryProduct as $CategoryProduct)
                     <!-- Product 1 -->
-                    <div class="col-6 col-md-3">
+                    <div class="col-12 col-md-6 col-lg-3">
                         <div class="product-card">
                             <div class="product-image">
                                 @if ($CategoryProduct->discount_price > 0)

@@ -417,10 +417,18 @@
             @endif
 
             <!-- Search (Desktop) -->
-            <div class="search-form d-none d-lg-flex mx-4">
-                <input type="text" placeholder="Search for products...">
-                <button type="button"><i class="fa-solid fa-magnifying-glass"></i></button>
-            </div>
+            <form action="{{ route('products.search') }}" method="GET" class="search-form d-none d-lg-flex mx-4">
+                <input
+                    type="text"
+                    name="search"
+                    value="{{ request('search') }}"
+                    placeholder="Search for products..."
+                >
+
+                <button type="submit">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form>
 
             <!-- User Actions -->
             <div class="d-flex gap-3 gap-lg-4 align-items-center">
@@ -502,10 +510,10 @@
 
                 <div class="collapse navbar-collapse" id="mobileNavMenu">
                     <!-- Mobile Search (Visible only on small screens) -->
-                    <div class="search-form d-flex d-lg-none mb-3">
-                        <input type="text" placeholder="Search for products...">
-                        <button type="button"><i class="fa-solid fa-magnifying-glass"></i></button>
-                    </div>
+                    <form action="{{ route('products.search') }}" method="GET" class="search-form d-flex d-lg-none mb-3">
+                        <input type="text" name="search" value="{{ request('search') }}" placeholder="Search for products...">
+                        <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </form>
 
                     <!-- Main Navigation Links (Responsive) -->
                     <ul class="navbar-nav main-nav flex-grow-1 justify-content-lg-between w-100">

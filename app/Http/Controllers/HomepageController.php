@@ -134,6 +134,28 @@ class HomepageController extends Controller
         return view('front-end.category-products',compact('AllCategoryProduct','SeoData'));
     }
 
+    // search function
+    public function search(Request $request)
+    {
+        $search = trim($request->search);
+
+        $SeoData = WebsiteSettings::select('meta_title', 'meta_description', 'meta_keywords', 'logo', 'company_name')->first();
+
+
+        $products = Product::where('status', 'active')
+            ->where(function ($query) use ($search) {
+                $query->where('name', 'LIKE', "%{$search}%")
+                    ->orWhere('short_description', 'LIKE', "%{$search}%")
+                    ->orWhere('long_description', 'LIKE', "%{$search}%");
+            })
+            ->latest()
+            ->paginate(12);
+
+        return view('front-end.search', compact('products', 'search', 'SeoData'));
+
+
+    }
+
 
     // End
 
