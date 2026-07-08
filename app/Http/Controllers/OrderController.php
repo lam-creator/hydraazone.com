@@ -108,7 +108,7 @@ class OrderController extends Controller
             if (!$user) {
 
                 // Find user only by id
-                $user = User::where('email', 'guest@gmail.com')->first();
+                $user = User::where('email', 'guest_user@hydraazone.com')->first();
 
 
             }
