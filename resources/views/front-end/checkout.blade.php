@@ -66,41 +66,6 @@
                                 </div>
                             </div>
 
-                            {{-- email --}}
-
-                            <div class="col-md-12">
-                                <div class="mb-3">
-                                    <input type="email" name="email" id="email" value="{{ $user->email ?? '' }}"
-                                        class="form-control" placeholder="Email">
-                                    @error('email')
-                                    <div style="color: red">{{ $message }}</div><br>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            {{-- check if user is logged in --}}
-
-                            @if(auth()->check())
-
-                            {{-- for logged-in user it will not show --}}
-
-                            @else
-
-                            {{-- password --}}
-
-                            <div class="col-md-12">
-                                <div class="mb-3">
-                                    <input type="password" name="password" id="password" class="form-control" placeholder="Type a strong password to create an account">
-                                    @error('password')
-                                    <div style="color: red">{{ $message }}</div><br>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            @endif
-
-
-
                             <div class="col-md-12">
                                 <div class="mb-3">
                                     <label class="form-label">Shipping Method</label>

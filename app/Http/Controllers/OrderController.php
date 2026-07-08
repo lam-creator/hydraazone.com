@@ -14,8 +14,6 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\WelcomeEmail;
 
 class OrderController extends Controller
 {
@@ -30,8 +28,6 @@ class OrderController extends Controller
         // Validate request
         $request->validate([
             'name'           => 'required|string|min:3|max:80',
-            'email'          => 'required|email|max:100',
-            'password'       => 'nullable|string|min:8|max:100',
             'phone'          => 'required|string|min:11|max:14',
             'zone'           => 'required',
             'address'        => 'required|string|min:3|max:255',
@@ -111,48 +107,11 @@ class OrderController extends Controller
             // Guest checkout
             if (!$user) {
 
-                // Find user only by phone
-                $user = User::where('phone', $request->phone)->first();
+                // Find user only by id
+                $user = User::where('email', 'guest@gmail.com')->first();
 
-                // Create user if not found
-                if (!$user) {
 
-                    $user = new User();
-
-                    $user->password = bcrypt($request->password );
-                    $user->name = $request->name;
-                    $user->phone = $request->phone;
-                    $user->zone = $request->zone;
-                    $user->address = $request->address;
-
-                    if (!empty($request->email)) {
-                        $user->email = $request->email;
-                    }
-
-                    $user->save();
-
-                    // log in the user after creating account
-                    Auth::login($user);
-
-                    // Send welcome email
-                    if (!empty($user->email)) {
-                        Mail::to($user->email)
-                            ->send(new WelcomeEmail($user, $request->password));
-                    }
-
-                }
             }
-
-            // Update user info
-            $user->name = $request->name;
-            $user->zone = $request->zone;
-            $user->address = $request->address;
-
-            // if (!empty($request->email)) {
-            //     $user->email = $request->email;
-            // }
-
-            $user->save();
 
             /*
         |--------------------------------------------------------------------------
