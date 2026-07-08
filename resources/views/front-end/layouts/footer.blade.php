@@ -42,7 +42,7 @@ $footerdata = App\Models\WebsiteSettings::first();
 
                         @foreach ($Footer1Links as $footer1link)
                             <li>
-                                <a class="text-decoration-none" href="{{ $footer1link->link }}" target="_blank">{{ $footer1link->title }}</a>
+                                <a class="text-decoration-none" href="{{ $footer1link->link }}" >{{ $footer1link->title }}</a>
                             </li>
                         @endforeach
 
@@ -68,7 +68,7 @@ $footerdata = App\Models\WebsiteSettings::first();
 
                         @foreach ($Footer2Links as $footer2link)
                             <li>
-                                <a class="text-decoration-none" href="{{ $footer2link->link }}" target="_blank">{{ $footer2link->title }}</a>
+                                <a class="text-decoration-none" href="{{ $footer2link->link }}" >{{ $footer2link->title }}</a>
                             </li>
                         @endforeach
 
