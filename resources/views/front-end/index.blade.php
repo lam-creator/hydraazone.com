@@ -37,10 +37,31 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            // min-height: 100vh;
-            min-height: 500px; /* Adjust this value as needed */
-            max-height: 100vh; /* Optional: Prevents the slider from exceeding the viewport height */
+            min-height: calc(100vh - 217px); /* Adjust this value based on your header/footer height */
+            // min-height: 500px; /* Adjust this value as needed */
+            // max-height: 100vh; /* Optional: Prevents the slider from exceeding the viewport height */
         }
+
+        /* Tablet */
+        @media (max-width: 991px) {
+            .slider-background {
+                min-height: 400px;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 767px) {
+            .slider-background {
+                min-height: 300px;
+                background-position: center center;
+            }
+        }
+
+        /* Small Mobile */
+        @media (max-width: 480px) {
+            .slider-background {
+                min-height: 250px;
+            }
 
     </style>
 
