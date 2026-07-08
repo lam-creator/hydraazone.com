@@ -16,6 +16,7 @@ use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LinkController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderTrackingController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
@@ -222,7 +223,9 @@ Route::get('/order-confirm', [OrderController::class, 'index'])->name('order-con
 
 // search
 Route::get('/search', [HomepageController::class, 'Search'])->name('products.search');
-
+// order tracking
+Route::get('/track-order', [OrderTrackingController::class, 'index'])->name('order.track');
+Route::post('/track-order', [OrderTrackingController::class, 'search'])->name('order.track.search');
 
 // User Section
 Route::prefix('user')->name('user.')->middleware('guest')->group(function () {
