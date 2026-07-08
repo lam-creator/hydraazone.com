@@ -26,8 +26,6 @@
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('uploads/logo/' . $HeaderData->logo) }}" />
 
-
-
     @stack('stylesheets')
 
 </head>
