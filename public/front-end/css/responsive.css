@@ -17,7 +17,8 @@
 /* Small Mobile */
 @media (max-width: 480px) {
     .product-card img {
-        height: auto;
+        /* height: auto; */
+        max-height: 200px !important;
     }
     .product-title {
         height: auto !important;
@@ -31,5 +32,12 @@
     .product button {
         text-align: center;
         display: grid;
+    }
+
+    /* very small mobile */
+    @media (max-width: 320px) {
+        .product-card img {
+            max-height: 100px !important;
+        }
     }
 }
