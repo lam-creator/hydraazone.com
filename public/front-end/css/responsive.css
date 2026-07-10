@@ -33,11 +33,11 @@
         text-align: center;
         display: grid;
     }
+}
 
-    /* very small mobile */
-    @media (max-width: 320px) {
-        .product-card img {
-            max-height: 100px !important;
-        }
+/* very small mobile */
+@media (max-width: 320px) {
+    .product-card img {
+        max-height: 100px !important;
     }
 }
