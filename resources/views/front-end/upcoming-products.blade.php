@@ -109,7 +109,7 @@
             @if ($AllUpcomingProductLink->isNotEmpty())
                 @foreach ($AllUpcomingProductLink as $UpcomingProduct)
                     <!-- Product 1 -->
-                    <div class="col-12 col-md-6 col-lg-3">
+                    <div class="col-6 col-md-4 col-lg-3 mb-2">
                         <div class="product-card">
                             <div class="product-image">
                                 <span class="discount-tag">Upcoming</span>

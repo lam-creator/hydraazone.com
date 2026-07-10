@@ -8,13 +8,28 @@
 /* Mobile */
 @media (max-width: 767px) {
     .product-card img {
-        height: 300px;
+        height: 200px;
+        /* height: 300px; */
+        /* height: auto; */
     }
 }
 
 /* Small Mobile */
 @media (max-width: 480px) {
     .product-card img {
-        height: 300px;
+        height: auto;
+    }
+    .product-title {
+        height: auto !important;
+    }
+    .product-price {
+        font-size: 15px;
+    }
+    .btn-theme {
+        padding: 5px 10px;
+    }
+    .product button {
+        text-align: center;
+        display: grid;
     }
 }

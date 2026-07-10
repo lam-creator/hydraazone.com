@@ -138,7 +138,7 @@
             <h3 class="fw-bold m-0">Popular Picks For You</h3>
             <a href="{{ route('featured.products') }}" class="text-primary-theme fw-medium">View All Products <i class="fa-solid fa-arrow-right"></i></a>
         </div>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4 justify-content-center">
+        <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4 justify-content-center">
 
 
             @if ($AllFeaturedProduct->isNotEmpty())
@@ -159,7 +159,7 @@
                                     {{-- <span class="product-badge">0</span> --}}
                                 @endif
 
-                            <img src="{{ asset('uploads/product/' . $FeaturedProduct->image) }}" alt="{{ $FeaturedProduct->name }}">
+                            <img class="img-fluid" src="{{ asset('uploads/product/' . $FeaturedProduct->image) }}" alt="{{ $FeaturedProduct->name }}">
                             <div class="product-title">{{ Str::limit($FeaturedProduct->name, 50) }}</div>
                             </a>
 

@@ -97,7 +97,7 @@
 
                                 <div class="col-lg-6">
                                     <div class="form-group mb-4">
-                                        <label for="exampleInputImage">Image <span class="text-danger">* Image size need to be 1500x500</span></label>
+                                        <label for="exampleInputImage">Image <span class="text-danger">* Image size need to be 1300x400</span></label>
                                         <input class="form-control" type="file" name="image">
                                         @error('image')
                                             <span class="text-danger">{{ $message }}</span>

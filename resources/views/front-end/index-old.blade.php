@@ -27,249 +27,315 @@
 @endsection
 
 @section('content')
-    <style>
-        .cart-btn {
-            border-radius: 35px;
-        }
-    </style>
+
+
+    @if($AllSlider->isNotEmpty())
 
 
     <style>
-        .main-slider {
-            margin: 10px 0;
+        .slider-background {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: calc(100vh - 217px); /* Adjust this value based on your header/footer height */
+            // min-height: 500px; /* Adjust this value as needed */
+            // max-height: 100vh; /* Optional: Prevents the slider from exceeding the viewport height */
         }
+        .sider-content-bg {
+                margin: 0 30px;
+                width: 70%;
+            }
+
+        /* Tablet */
+        @media (max-width: 991px) {
+            .slider-background {
+                min-height: 400px;
+            }
+            .sider-content-bg {
+                margin: 0 30px;
+                width: 70%;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 767px) {
+            .slider-background {
+                min-height: 300px;
+                background-position: center center;
+            }
+            .sider-content-bg {
+                margin: 0 30px;
+                width: 85%;
+            }
+        }
+
+        /* Small Mobile */
+        @media (max-width: 480px) {
+            .slider-background {
+                min-height: 250px;
+            }
+            .sider-content-bg {
+                margin: 0 30px;
+                width: 85%;
+            }
+        }
+
     </style>
-    <!-- Slider  -->
-    <section class="main-slider">
-        <div class="container">
-            <div id="imageSlider" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
 
-                    @if ($AllSlider->isNotEmpty())
-                        @foreach ($AllSlider as $index => $slider)
-                            <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-                                <a href="{{ $slider->link }}">
-                                    <img src="/uploads/slider/{{ $slider->image }}" class="d-block w-100"
-                                    alt="{{ $slider->title }}">
-                                </a>
-                            </div>
-                        @endforeach
-                    @endif
+    <!-- Hero Slider Section -->
+    <div class="container">
+    <section class="hero-section">
+        <div id="mainHeroCarousel" class="carousel slide hero-carousel" data-bs-ride="carousel">
 
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#imageSlider" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#imageSlider" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
-        </div>
-    </section>
-
-
-    {{-- Code for Category wise product display  --}}
-
-    <!-- Featured Products Section -->
-    {{-- if uppcoming in empty then do not show section --}}
-
-    @if($AllFeaturedProduct->isNotEmpty())
-
-        <section class="container mb-5">
-
-            <div class="text-separator">
-                <hr class="d-none d-md-block">
-                <h2 class="separator-text">Featured Product</h2>
-                <hr class="d-none d-md-block">
+            <!-- Indicators -->
+            <div class="carousel-indicators">
+                @foreach ($AllSlider as $index => $slider)
+                    <button type="button" data-bs-target="#mainHeroCarousel" data-bs-slide-to="{{ $index }}" class="{{ $index === 0 ? 'active' : '' }}" aria-current="{{ $index === 0 ? 'true' : 'false' }}" aria-label="Slide {{ $index + 1 }}"></button>
+                @endforeach
             </div>
 
-            <div class="row">
+            <div class="carousel-inner">
 
-                @if ($AllFeaturedProduct->isNotEmpty())
-                    @foreach ($AllFeaturedProduct as $FeaturedProduct)
-                        <!-- Product 1 -->
-                        <div class="col-6 col-md-3">
-                            <div class="product-card">
-                                <div class="product-image">
+                @if ($AllSlider->isNotEmpty())
+                    @foreach ($AllSlider as $index => $slider)
 
-                                    @if ($FeaturedProduct->discount_price > 0)
-                                        <span class="discount-tag">Special Discount</span>
-                                    @else
-                                        <span></span>
-                                    @endif
 
-                                    {{-- <span class="discount-tag">Tk {{ $FeaturedProduct->sale_price - $FeaturedProduct->discount_price }}ছাড়</span> --}}
-                                    <a
-                                        href="{{ route('product-details', ['category' => $FeaturedProduct->category->category_slug, 'name' => $FeaturedProduct->product_slug, 'id' => $FeaturedProduct->id]) }}"><img
-                                            src="/uploads/product/{{ $FeaturedProduct->image }}"
-                                            alt="{{ $FeaturedProduct->name }}" class="img-fluid"></a>
-                                </div>
-                                <div class="product-details">
-                                    <a
-                                        href="{{ route('product-details', ['category' => $FeaturedProduct->category->category_slug, 'name' => $FeaturedProduct->product_slug, 'id' => $FeaturedProduct->id]) }}">
-                                        <h3 class="product-title">{{ $FeaturedProduct->name }}</h3>
-                                    </a>
-                                    <div class="product-price">
-                                        {{-- Price  --}}
-                                        @if ($FeaturedProduct->status == 'active')
-                                            @if ($FeaturedProduct->discount_price > 0)
-                                                <span class="original-price">Tk{{ $FeaturedProduct->sale_price }}</span>
-                                                <span class="discounted-price">Tk{{ $FeaturedProduct->discount_price }}</span>
-                                            @else
-                                                <span class="discounted-price">Tk{{ $FeaturedProduct->sale_price }}</span>
-                                            @endif
-                                        @endif
+                        <!-- Slide 1 -->
+                        <div style="background-image: url('{{ asset('uploads/slider/' . $slider->image) }}') " class="slider-background carousel-item {{ $index === 0 ? 'active' : '' }}" data-bs-interval="5000">
+                            <div class="container hero-carousel-item-inner">
+                                <div class="row align-items-center flex-column-reverse flex-lg-row">
+                                    <div class="col-lg-6 mt-4 mt-lg-0 sider-content-bg">
+                                        <h1 class="hero-title serif-font">{{ $slider->title }}</h1>
+                                        <p class="text-muted mb-4 fs-6 fs-lg-5">{{ $slider->slogan }}</p>
+                                        <div class="d-flex gap-3 mb-4 mb-lg-5">
+                                            <a href="{{ $slider->link }}" class="btn-theme">{{ $slider->button_text }} <i class="fa-solid fa-arrow-right ms-2"></i></a>
+                                        </div>
                                     </div>
-
-                                    <div class="product" data-id="{{ $FeaturedProduct->id }}">
-                                        <button class="m-2 text-white btn btn-warning add-to-cart btn-add-cart"><i
-                                                class="fa hide-in-mobile fa-shopping-cart"></i> Add to Cart</button>
-                                    </div>
-
+                                    {{-- <div class="col-lg-6 position-relative">
+                                        <img src="{{ asset('uploads/slider/' . $slider->image) }}" alt="{{ $slider->title }}" class="hero-image shadow">
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
+
                     @endforeach
                 @endif
 
+
+
             </div>
-            <div class="view-all">
-                <a href="{{ route('featured.products') }}">View All <i class="fas fa-arrow-right"></i></a>
-            </div>
-        </section>
+        </div>
+    </section>
+    </div>
     @endif
 
 
+    @if($AllFeaturedProduct->isNotEmpty())
+
+    <!-- Popular Product Picks Section -->
+    <section class="container my-5">
+        <div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-end mb-4 gap-2">
+            <h3 class="fw-bold m-0">Popular Picks For You</h3>
+            <a href="{{ route('featured.products') }}" class="text-primary-theme fw-medium">View All Products <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4 justify-content-center">
 
 
-    {{-- Code for Category wise product display  --}}
+            @if ($AllFeaturedProduct->isNotEmpty())
+                @foreach ($AllFeaturedProduct as $FeaturedProduct)
 
-    @foreach ($AllCategoryProduct as $category)
-        @if ($category->products->isNotEmpty())
-            <!-- Category Products Section -->
-            <section class="container mb-5">
+                    <!-- Product 1 -->
+                    <div class="col">
+                        <div class="product-card">
 
-                <div class="text-separator">
-                    <hr class="d-none d-md-block">
-                    <h2 class="separator-text">{{ $category->name }}</h2>
-                    <hr class="d-none d-md-block">
-                </div>
+                            <a href="{{ route('product-details', ['category' => $FeaturedProduct->category->category_slug, 'name' => $FeaturedProduct->product_slug, 'id' => $FeaturedProduct->id]) }}">
 
-                <div class="row">
+                                @php
+                                    $totalDiscount = ($FeaturedProduct->discount_price - $FeaturedProduct->sale_price);
+                                @endphp
+                                @if ($FeaturedProduct->discount_price > 0)
+                                    <span class="product-badge">{{ $totalDiscount }}</span>
+                                @else
+                                    {{-- <span class="product-badge">0</span> --}}
+                                @endif
 
-                    @foreach ($category->products as $product)
-                        <!-- Product 1 -->
-                        <div class="col-6 col-md-3">
-                            <div class="product-card">
-                                <div class="product-image">
+                            <img src="{{ asset('uploads/product/' . $FeaturedProduct->image) }}" alt="{{ $FeaturedProduct->name }}">
+                            <div class="product-title">{{ Str::limit($FeaturedProduct->name, 50) }}</div>
+                            </a>
 
-                                    @if ($product->discount_price > 0)
-                                        <span class="discount-tag">Special Discount</span>
-                                    @else
-                                        <span></span>
-                                    @endif
+                            <div class="d-flex justify-content-between align-items-center mt-3">
 
-                                    {{-- <span class="discount-tag">১০% ছাড়</span> --}}
-                                    <a
-                                        href="{{ route('product-details', ['category' => $product->category->category_slug, 'name' => $product->product_slug, 'id' => $product->id]) }}">
-                                        <img src="/uploads/product/{{ $product->image }}" alt="{{ $product->name }}"
-                                            class="img-fluid"></a>
-                                </div>
-                                <div class="product-details">
-                                    <a
-                                        href="{{ route('product-details', ['category' => $product->category->category_slug, 'name' => $product->product_slug, 'id' => $product->id]) }}">
-                                        <h3 class="product-title">{{ $product->name }}</h3>
-                                    </a>
-                                    <div class="product-price">
-
-                                        {{-- Price  --}}
-                                        @if ($product->status == 'active')
-                                            @if ($product->discount_price > 0)
-                                                <span class="original-price">Tk{{ $product->sale_price }}</span>
-                                                <span class="discounted-price">Tk{{ $product->discount_price }}</span>
-                                            @else
-                                                <span class="discounted-price">Tk{{ $product->sale_price }}</span>
-                                            @endif
+                                <div class="product-price">
+                                    @if ($FeaturedProduct->status == 'active')
+                                        @if ($FeaturedProduct->discount_price > 0)
+                                            ৳ {{ $FeaturedProduct->discount_price }}
+                                            <del>৳ {{ $FeaturedProduct->sale_price }}</del>
+                                        @else
+                                            ৳ {{ $FeaturedProduct->sale_price }}
                                         @endif
-
-                                    </div>
-
-                                    <div class="product" data-id="{{ $product->id }}">
-                                        <button class="m-2 text-white btn btn-warning add-to-cart btn-add-cart"><i
-                                                class="fa fa-shopping-cart hide-in-mobile"></i> Add to Cart</button>
-                                    </div>
-
+                                    @endif
                                 </div>
+
+                                <div class="product" data-id="{{ $FeaturedProduct->id }}">
+                                        <button class="cart-btn-small add-to-cart btn-add-cart"><i class="fa-solid fa-cart-shopping"></i></button>
+                                </div>
+
                             </div>
                         </div>
-                    @endforeach
+                    </div>
 
-                </div>
-                <div class="view-all">
-                    <a
-                        href="{{ route('categorywise-product', ['name' => $category->category_slug, 'id' => $category->id]) }}">View
-                        All <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </section>
-        @endif
-    @endforeach
+                @endforeach
+            @endif
 
 
-    {{-- Code for Upcoming product display  --}}
 
-    <!-- Upcoming Products Section -->
-    {{-- if uppcoming in empty then do not show section --}}
 
-    @if($AllUpcomingProduct->isNotEmpty())
-        <section class="container mb-5">
 
-        <div class="text-separator">
-            <hr class="d-none d-md-block">
-            <h2 class="separator-text">Upcoming Product</h2>
-            <hr class="d-none d-md-block">
+        </div>
+    </section>
+
+    @endif
+
+    <!-- Shop by Collection -->
+    <section class="container my-5">
+        <div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-end mb-4 gap-2">
+            <h3 class="fw-bold m-0">Shop by Collection</h3>
+            {{-- <a href="#" class="text-primary-theme fw-medium">Browse All Categories <i class="fa-solid fa-arrow-right"></i></a> --}}
         </div>
 
-        <div class="row">
-            @if ($AllUpcomingProduct->isNotEmpty())
-                @foreach ($AllUpcomingProduct as $UpcomingProduct)
-                    <!-- Product 1 -->
-                    <div class="col-6 col-md-3">
-                        <div class="product-card">
-                            <div class="product-image">
-                                <span class="discount-tag">Upcoming</span>
-                                <a
-                                    href="{{ route('product-details', ['category' => $UpcomingProduct->category->category_slug, 'name' => $UpcomingProduct->product_slug, 'id' => $UpcomingProduct->id]) }}"><img
-                                        src="/uploads/product/{{ $UpcomingProduct->image }}"
-                                        alt="{{ $UpcomingProduct->name }}" class="img-fluid"></a>
-                            </div>
-                            <div class="product-details">
-                                <a
-                                    href="{{ route('product-details', ['category' => $UpcomingProduct->category->category_slug, 'name' => $UpcomingProduct->product_slug, 'id' => $UpcomingProduct->id]) }}">
-                                    <h3 class="product-title">{{ $UpcomingProduct->name }}</h3>
-                                </a>
-                                <div class="product-price">
 
-                                </div>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4 justify-content-center">
+
+            <style>
+
+                .collection-card-text-area {
+                    background-color: rgba(22, 18, 18, 0.742);
+                    border-radius: 5px;
+                    position: absolute;
+                    bottom: 15px;
+                    width: 100%;
+                }
+                .height-fix{
+                    height: 80px;
+                }
+            </style>
+
+            @foreach ($AllCategoryProduct as $category)
+            @if ($category->products->isNotEmpty())
+
+            <!-- Col -->
+            <div class="col">
+                <a href="{{ route('categorywise-product', ['name' => $category->category_slug, 'id' => $category->id]) }}">
+                    <div class="collection-card">
+                        <img src="{{ asset('uploads/category/' . $category->image) }}" alt="{{ $category->name }}">
+                        <div class="d-flex align-items-center justify-content-center gap-2 collection-card-text-area height-fix">
+                            <img src="{{ asset('uploads/category/icon/' . $category->icon) }}" style="width: 30px;height:30px; padding:3px;background-color: #fff;" alt="{{ $category->name }}">
+                            <div class="text-start">
+                                <div class="fw-bold text-white font-14">{{ $category->name }}</div>
+                                <div class="text-white font-12">{{ $category->products->count() }} Product</div>
                             </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            @endif
+            @endforeach
+
+        </div>
+
+    </section>
+
+
+    @if($AllBanner->isNotEmpty())
+
+    <!-- Banner Section -->
+    <section class="container my-5">
+        <div class="row g-4">
+
+            @if ($AllBanner->isNotEmpty())
+                @foreach ($AllBanner as $Banner)
+
+                    <div class="col-md-6">
+                        <div class="banner-card banner-dark" style="background-image: linear-gradient(to right, #1a1a1a 30%, transparent), url('{{ asset('uploads/banner/' . $Banner->image) }}');">
+                            <div class="w-75">
+                                <h2 class="serif-font mb-3 fs-3">{{ $Banner->title }}</h2>
+                                <p class="font-14 text-light mb-4">{{ $Banner->slogan }}</p>
+                                <a href="{{ $Banner->link }}" class="btn btn-light fw-bold font-14 px-3 py-2">{{ $Banner->button_text }}<i class="fa-solid fa-arrow-right ms-2"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                @endforeach
+            @endif
+
+        </div>
+    </section>
+
+    @endif
+
+    @if($AllFeature->isNotEmpty())
+
+    <!-- Features Bar -->
+    <section class="container features-bar mb-5">
+        <div class="row g-3">
+
+            @if ($AllFeature->isNotEmpty())
+                @foreach ($AllFeature as $Feature)
+
+                    <div class="col-6 col-md-3 feature-item">
+                        <img src="{{ asset('uploads/feature/' . $Feature->image) }}" alt="{{ $Feature->title }}" class="img-fluid">
+                        <div>
+                            <div class="fw-bold font-14">{{ $Feature->title }}</div>
+                            <div class="text-muted font-12">{{ $Feature->slogan }}</div>
                         </div>
                     </div>
                 @endforeach
             @endif
 
         </div>
-        <div class="view-all">
-            <a href="{{ route('upcoming.products') }}">View All <i class="fas fa-arrow-right"></i></a>
+    </section>
+
+    @endif
+
+
+    @if($AllTrust->isNotEmpty())
+
+    <!-- Trust Banner -->
+    <section class="trust-banner">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-4 mb-4 mb-lg-0 text-center text-lg-start">
+                    <h3 class="serif-font m-0 fs-2">Why Thousands Trust <span class="text-primary-theme">Us?</span></h3>
+                </div>
+                <div class="col-lg-8">
+                    <div class="row text-white g-4 justify-content-center">
+
+                        @if ($AllTrust->isNotEmpty())
+                            @foreach ($AllTrust as $Trust)
+
+                                <div class="col-sm-6 col-md-3 trust-item justify-content-center justify-content-lg-start">
+                                    <img src="{{ asset('uploads/trust/' . $Trust->image) }}" alt="{{ $Trust->title }}" style="width: 32px; height: 32px;">
+                                    <div>
+                                        <div class="font-14 fw-bold">{{ $Trust->title }}</div>
+                                        <div class="font-12 text-light">{{ $Trust->slogan }}</div>
+                                    </div>
+                                </div>
+
+                            @endforeach
+                        @endif
+
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
     @endif
 
 
-
-
 @endsection
+
 
 {{-- push custom js before end of body tag --}}
 @push('scripts')
