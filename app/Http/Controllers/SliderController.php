@@ -97,7 +97,7 @@ class SliderController extends Controller
                 $extension          = Str::lower($file->getClientOriginalExtension());
                 $filename           = Str::uuid() . Str::random(5) . '.' . $extension;
                 $img                = $manager->read($file);
-                $img                = $img->resize(1300,400);
+                $img                = $img->resize(1300,500);
                 $destinationPath    = public_path('uploads/slider/');  // Directory name will change
                 $img->save($destinationPath.$filename);
                 $query->image       = $filename;
