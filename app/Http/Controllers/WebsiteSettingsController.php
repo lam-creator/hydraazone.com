@@ -38,6 +38,8 @@ class WebsiteSettingsController extends Controller
             'android_app_url' => 'required|min:3',
             'ios_app_url' => 'required|min:3',
             'copyright' => 'required|min:3',
+            'custom_code_header' => 'nullable',
+            'custom_code_footer' => 'nullable',
             'logo' => 'nullable|max:2048',
         ]);
 
@@ -100,6 +102,8 @@ class WebsiteSettingsController extends Controller
                 'meta_title' => $request->meta_title,
                 'meta_description' => $request->meta_description,
                 'meta_keywords' => $request->meta_keywords,
+                'custom_code_header' => $request->custom_code_header,
+                'custom_code_footer' => $request->custom_code_footer,
                 'user_id' => Auth::guard('admin')->id(),
             ]);
 

@@ -27,6 +27,8 @@ class WebsiteSettings extends Model
         'meta_title',
         'meta_description',
         'meta_keywords',
+        'custom_code_header',
+        'custom_code_footer',
         'user_id',
     ];
 

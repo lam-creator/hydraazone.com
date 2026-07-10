@@ -30,6 +30,9 @@ return new class extends Migration
             $table->text('meta_title')->nullable();
             $table->text('meta_description')->nullable();
             $table->text('meta_keywords')->nullable();
+            // custom code in header and footer for large data like google analytics, facebook pixel, etc.
+            $table->longText('custom_code_header')->nullable();
+            $table->longText('custom_code_footer')->nullable();
             $table->integer('user_id')->nullable();
             $table->timestamps();
         });

@@ -223,6 +223,27 @@
                                 </div>
                             </div>
 
+                            <div class="col-lg-12">
+                                <div class="mb-4 form-group">
+                                    <label for="custom_code_header">Custom Code Header</label>
+                                    <textarea class="form-control" name="custom_code_header" rows="8" placeholder="Custom code in header">{{ $WebsiteSettingsData->custom_code_header }}</textarea>
+                                    @error('custom_code_header')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="mb-4 form-group">
+                                    <label for="custom_code_footer">Custom Code Footer</label>
+                                    <textarea class="form-control" name="custom_code_footer" rows="8" placeholder="Custom code in footer">{{ $WebsiteSettingsData->custom_code_footer }}</textarea>
+                                    @error('custom_code_footer')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+
+
 
                         </div>
 

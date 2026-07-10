@@ -119,5 +119,7 @@ $footerdata = App\Models\WebsiteSettings::first();
     });
     </script>
 
+    {!! $footerdata->custom_code_footer !!}
+
 </body>
 </html>
