@@ -18,7 +18,7 @@
 @media (max-width: 480px) {
     .product-card img {
         /* height: auto; */
-        max-height: 200px !important;
+        max-height: 120px !important;
     }
     .product-title {
         height: auto !important;
